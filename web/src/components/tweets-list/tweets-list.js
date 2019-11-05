@@ -1,6 +1,6 @@
 import React from "react";
 
-import TweetItem from "./tweet-item";
+import TweetItem from "../tweet-item/tweet-item";
 import "./tweets-list.css";
 
 const TweetsList = ( {tweet} ) => {
