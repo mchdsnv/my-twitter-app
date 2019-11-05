@@ -1,12 +1,26 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import * as serviceWorker from './serviceWorker';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+import TwitterHeader from "./components/twitter-header";
+import TweetForm from "./components/twitter-form";
+import TweetsList from "./components/tweets-list";
+import TweetItem from "./components/tweet-item";
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: https://bit.ly/CRA-PWA
-serviceWorker.unregister();
+const TweetData = [
+    { id: "1", fullname: 'Developer', message: 'First tweet', username: '@developer', time: '5 min ago' },
+    { id: "2", fullname: 'Developer', message: 'Second tweet', username: '@developer', time: '15 min ago' },
+    { id: "3", fullname: 'Developer', message: 'Third tweet', username: '@developer', time: '25 min ago' },
+];
+
+const TwitterApp = () => {
+    return(
+        <div className="container">
+            <TwitterHeader />
+            <TweetForm />
+            <TweetsList tweet={TweetData } />
+        </div>
+    );
+};
+
+ReactDOM.render(<TwitterApp />,
+    document.getElementById('root') );
