@@ -21,8 +21,9 @@ export default class PostForm extends Component {
         event.preventDefault();
         this.props.onAdded(this.state.message);
         this.setState({
-            message: ''
-        })
+            message: '',
+            counter: 0
+        });
     };
 
     render() {
@@ -32,16 +33,18 @@ export default class PostForm extends Component {
                 className="post-form form-group"
                 onSubmit = {this.onSubmit}
             >
-                <span>{this.state.counter}</span>
-                <label>What do you want for share?</label>
-                <textarea
-                    className="form-control"
-                    placeholder={TweetText}
-                    onChange={ this.onTextChange }
-                    maxLength="280"
-                    value= {this.state.message}
-                >
+                <strong>What do you want for share?</strong>
+                <div>
+                    <div>{this.state.counter}</div>
+                    <textarea
+                        className="form-control"
+                        placeholder={TweetText}
+                        onChange={ this.onTextChange }
+                        maxLength="280"
+                        value= {this.state.message}
+                    >
                 </textarea>
+                </div>
                 <button
                     type="submit"
                     className="btn btn-default float-right">

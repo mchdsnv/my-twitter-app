@@ -1,18 +1,15 @@
+.post-form,
+.post-form button {
+    margin-top: 10px;
+}
+
 .post-form button {
     display: block;
     background-color: #1da1f2;
     border: 1px solid #1da1f2;
     color: #fff;
     border-radius: 5px;
-    box-shadow: none;
     cursor: pointer;
-    font-size: 14px;
-    font-weight: bold;
-    line-height: 20px;
-    padding: 10px 16px;
-    position: relative;
-    text-align: center;
-    white-space: nowrap;
 }
 
 .post-form button:hover,

@@ -1,0 +1,12 @@
+.twitter-post .column {
+    padding: 5px;
+}
+
+.twitter-post .twitter-post-fullname {
+    color: #000;
+}
+
+.twitter-post .column span {
+    margin: 0 5px;
+    color: #657786;
+}

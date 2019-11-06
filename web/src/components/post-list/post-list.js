@@ -3,7 +3,7 @@ import React from "react";
 import TweetItem from "../post-item/post-item";
 import "./post-list.css";
 
-const PostList = ({tweet, onDeleted} ) => {
+function PostList({tweet, onDeleted}) {
     const elements = tweet.map( ( item ) => {
 
         const {id, ...itemProps} = item;
@@ -20,9 +20,10 @@ const PostList = ({tweet, onDeleted} ) => {
 
     return(
         <ul className="list-group post-item">
+            <strong className="list-group-item">Tweets</strong>
             {elements}
         </ul>
     );
-};
+}
 
 export default PostList;

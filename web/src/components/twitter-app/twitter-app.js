@@ -3,6 +3,8 @@ import React, {Component} from "react";
 import AppHeader from "../app-header";
 import PostForm from "../post-form";
 import PostList from "../post-list";
+import avatar from '../user-profile-img.png';
+import './twitter-app.css';
 
 export default class TwitterApp extends Component {
 
@@ -10,16 +12,17 @@ export default class TwitterApp extends Component {
 
     state = {
         postData: [
-            { id: "1", fullname: 'Developer', message: 'First tweet', username: '@developer', time: '5 min ago' },
-            { id: "2", fullname: 'Developer', message: 'Second tweet', username: '@developer', time: '15 min ago' },
-            { id: "3", fullname: 'Developer', message: 'Third tweet', username: '@developer', time: '25 min ago' },
-            { id: "4", fullname: 'Developer', message: 'Third tweet', username: '@developer', time: '3 hours ago' }
+            { id: "1", avatar: avatar, fullname: 'Developer', message: 'First tweet', username: '@developer', time: '5 min ago' },
+            { id: "2", avatar: avatar, fullname: 'Developer', message: 'Second tweet', username: '@developer', time: '15 min ago' },
+            { id: "3", avatar: avatar, fullname: 'Developer', message: 'Third tweet', username: '@developer', time: '25 min ago' },
+            { id: "4", avatar: avatar, fullname: 'Developer', message: 'Third tweet', username: '@developer', time: '3 hours ago' }
         ]
     }
 
     addItem = (text, time) => {
         const newPostData = {
             id: this.maxId++,
+            avatar: avatar,
             fullname: 'User',
             message: text,
             username: '@user',
