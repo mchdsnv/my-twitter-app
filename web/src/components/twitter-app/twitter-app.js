@@ -13,17 +13,17 @@ export default class TwitterApp extends Component {
             { id: "1", fullname: 'Developer', message: 'First tweet', username: '@developer', time: '5 min ago' },
             { id: "2", fullname: 'Developer', message: 'Second tweet', username: '@developer', time: '15 min ago' },
             { id: "3", fullname: 'Developer', message: 'Third tweet', username: '@developer', time: '25 min ago' },
-            { id: "4", fullname: 'Developer', message: 'Third tweet', username: '@developer', time: '125 min ago' }
+            { id: "4", fullname: 'Developer', message: 'Third tweet', username: '@developer', time: '3 hours ago' }
         ]
     }
 
-    addItem = (text) => {
+    addItem = (text, time) => {
         const newPostData = {
             id: this.maxId++,
             fullname: 'User',
             message: text,
-            username: '@developer',
-            time: '250 min ago'
+            username: '@user',
+            time: 'just now'
         }
 
         this.setState( ( { postData })=> {

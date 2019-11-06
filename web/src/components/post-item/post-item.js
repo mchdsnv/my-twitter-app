@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 
 export default class TweetItem extends Component {
-
     render() {
         const { fullname, username, time, message, onDeleted } = this.props;
         return(
@@ -10,7 +9,7 @@ export default class TweetItem extends Component {
                 <span>{ username }</span>
                 <small>{ time }</small>
                 <div>{ message }</div>
-                <a onClick={ onDeleted }>Delete</a>
+                <a href="/#" onClick={ onDeleted }>Delete</a>
             </div>
         );
     }
