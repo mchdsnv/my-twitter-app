@@ -10,7 +10,7 @@ export default class TweetItem extends Component {
                 <span>{ username }</span>
                 <small>{ time }</small>
                 <div>{ message }</div>
-                <a onClick={ onDeleted }>Delete tweet</a>
+                <a onClick={ onDeleted }>Delete</a>
             </div>
         );
     }

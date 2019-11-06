@@ -4,23 +4,65 @@ import AppHeader from "../app-header";
 import PostForm from "../post-form";
 import PostList from "../post-list";
 
-const PostData = [
-    { id: "1", fullname: 'Developer', message: 'First tweet', username: '@developer', time: '5 min ago' },
-    { id: "2", fullname: 'Developer', message: 'Second tweet', username: '@developer', time: '15 min ago' },
-    { id: "3", fullname: 'Developer', message: 'Third tweet', username: '@developer', time: '25 min ago' },
-    { id: "4", fullname: 'Developer', message: 'Third tweet', username: '@developer', time: '125 min ago' }
-];
-
 export default class TwitterApp extends Component {
+
+    maxId = 100;
+
+    state = {
+        postData: [
+            { id: "1", fullname: 'Developer', message: 'First tweet', username: '@developer', time: '5 min ago' },
+            { id: "2", fullname: 'Developer', message: 'Second tweet', username: '@developer', time: '15 min ago' },
+            { id: "3", fullname: 'Developer', message: 'Third tweet', username: '@developer', time: '25 min ago' },
+            { id: "4", fullname: 'Developer', message: 'Third tweet', username: '@developer', time: '125 min ago' }
+        ]
+    }
+
+    addItem = (text) => {
+        const newPostData = {
+            id: this.maxId++,
+            fullname: 'User',
+            message: text,
+            username: '@developer',
+            time: '250 min ago'
+        }
+
+        this.setState( ( { postData })=> {
+            const resultArray = [
+                ...postData,
+                newPostData
+            ];
+
+            return {
+                postData: resultArray
+            }
+        } )
+    }
+
+    deleteItem = (id) => {
+        this.setState( ( { postData } )=> {
+            const postId = postData.findIndex( (el) => el.id === id );
+
+            const before = postData.slice( 0, postId );
+            const after = postData.slice(postId+1);
+
+            const resultArray = [ ...before, ...after ];
+            return {
+                postData: resultArray
+            };
+        } )
+    }
+
     render() {
         return(
             <div className="container">
                 <AppHeader />
                 <PostList
-                    tweet={PostData}
-                    onDeleted = { (id)=> console.log(id)  }
+                    tweet={this.state.postData}
+                    onDeleted = { this.deleteItem }
                 />
-                <PostForm />
+                <PostForm
+                    onAdded = { this.addItem }
+                />
             </div>
         );
     }
