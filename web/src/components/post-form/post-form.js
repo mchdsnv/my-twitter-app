@@ -1,8 +1,8 @@
-import React, {Component} from "react";
+import React from "react";
 
 import "./post-form.css";
 
-export default class PostForm extends Component {
+class PostForm extends React.Component {
 
     state = {
         message: '',
@@ -19,7 +19,7 @@ export default class PostForm extends Component {
 
     onSubmit = (event) => {
         event.preventDefault();
-        this.props.onAdded(this.state.message);
+        this.props.onAdd(this.state.message);
         this.setState({
             message: '',
             counter: 0
@@ -54,3 +54,5 @@ export default class PostForm extends Component {
         );
     }
 }
+
+export default PostForm;

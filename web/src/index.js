@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 
-import TwitterApp from "./components/twitter-app";
+import App from "./components/app";
 
-ReactDOM.render(<TwitterApp />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById('root'));

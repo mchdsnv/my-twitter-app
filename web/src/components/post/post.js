@@ -1,11 +1,12 @@
 import React from "react";
 
-import "./post-item.css";
+import "./post.css";
 
-function TweetItem( props ) {
-    const { avatar, fullname, username, time, message, onDeleted } = props;
+function Post( props ) {
+    const { id, avatar, fullname, username, time, message, onDelete } = props;
+    console.log(id);
     return(
-        <div  className="twitter-post container" >
+        <div className="post container" >
             <div className="row">
                 <div className="column">
                     <img width="50px"
@@ -16,15 +17,16 @@ function TweetItem( props ) {
                     />
                 </div>
                 <div className="column">
+                    <input type="hidden" value={id} />
                     <strong className="font-weight-bold">{ fullname }</strong>
                     <span className="font-italic">{ username }</span>
                     <span>{ time }</span>
                     <div>{ message }</div>
-                    <a href="/#" onClick={ onDeleted }>Delete</a>
+                    <a href="/#" onClick={ onDelete }>Delete</a>
                 </div>
             </div>
         </div>
     );
 }
 
-export default TweetItem;
+export default Post;
