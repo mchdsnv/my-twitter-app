@@ -6,7 +6,7 @@ import Posts from "../posts";
 import avatar from '../user-profile-img.png';
 import './App.css';
 
-export default class App extends React.Component {
+class App extends React.Component {
 
     state = {
         posts: [
@@ -15,7 +15,7 @@ export default class App extends React.Component {
             { id: 3, avatar, fullname: 'Developer', message: 'Third tweet', username: '@developer', time: '25 min ago' },
             { id: 4, avatar, fullname: 'Developer', message: 'Third tweet', username: '@developer', time: '3 hours ago' }
         ]
-    }
+    };
 
     addPost = (text) => {
         const postId = require('uuid/v4');
@@ -29,7 +29,7 @@ export default class App extends React.Component {
             message: text,
             username: '@user',
             time: 'just now'
-        }
+        };
 
         console.log( id );
 
@@ -43,7 +43,7 @@ export default class App extends React.Component {
                 posts: resultArray
             }
         } )
-    }
+    };
 
     deletePost= (id) => {
         this.setState( ( { posts } )=> {
@@ -57,7 +57,7 @@ export default class App extends React.Component {
                 posts: resultArray
             };
         } )
-    }
+    };
 
     render() {
         return(
@@ -74,3 +74,5 @@ export default class App extends React.Component {
         );
     }
 }
+
+export default App;

@@ -41,7 +41,7 @@ class PostForm extends React.Component {
                         placeholder={TweetText}
                         onChange={ this.onTextChange }
                         maxLength="280"
-                        value= {this.state.message}
+                        value={this.state.message}
                     >
                 </textarea>
                 </div>
