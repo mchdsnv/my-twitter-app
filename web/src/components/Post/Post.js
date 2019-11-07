@@ -29,10 +29,14 @@ function Post( props ) {
     }
     `;
 
-    const Button = styled.button`
+    const ButtonTrash = styled.button`
         padding: 5px 0;
         border: none;
         background: transparent;
+        cursor: pointer;
+    :focus {
+        outline: none;
+    }
     > i {
         color: #ff6347;
         margin: 5px 0;
@@ -51,9 +55,9 @@ function Post( props ) {
                 <span>{username}</span>
                 <span>{time}</span>
                 <div>{message}</div>
-                <Button onClick={onDelete}>
+                <ButtonTrash onClick={onDelete}>
                     <i className="fa fa-trash" aria-hidden="true"></i>
-                </Button>
+                </ButtonTrash>
             </Column>
         </Row>
     );
