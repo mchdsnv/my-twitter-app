@@ -1,10 +1,10 @@
 import React from "react";
-
-import "./post.css";
+import styled from 'styled-components';
+import "./Post.css";
 
 function Post( props ) {
     const { id, avatar, fullname, username, time, message, onDelete } = props;
-    console.log(id);
+
     return(
         <div className="post container" >
             <div className="row">

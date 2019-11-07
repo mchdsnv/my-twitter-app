@@ -1,10 +1,11 @@
 import React from "react";
 
-import Post from "../post";
+import Post from "../Post";
 import "./Posts.css";
 
 function Posts({posts, onDelete}) {
-    const elements = posts.map( ( post) => {
+    const elements = posts.map((post) => {
+        console.log(post);
         return(
             <li className="list-group-item" key={post.id}>
                 <Post
