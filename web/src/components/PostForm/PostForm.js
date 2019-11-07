@@ -1,6 +1,41 @@
 import React from "react";
+import styled from "styled-components";
 
-import "./PostForm.css";
+const Button = styled.button`
+    display: block;
+    border: 1px solid #1da1f2;
+    border-radius: 5px;
+    margin-top: 10px;
+    padding: 10px;
+    float: right;
+    background-color: #1da1f2;
+    color: #fff;
+    cursor: pointer;
+    font-family: 'FontAwesome';
+    font-size: 14px;
+    
+    :hover {
+        background-color: #1B95E0;
+        border-color: #1B95E0;
+        color: #fff;
+    }
+    `;
+
+const Counter = styled.span`
+    display: block;
+    `;
+
+const Textarea = styled.textarea`
+    height: 100px;
+    width: 100%;
+    padding: 5px;
+    box-sizing: border-box;
+    resize: vertical;
+    `;
+
+const Form = styled.form`
+    margin-top: 10px;
+    `;
 
 class PostForm extends React.Component {
 
@@ -27,30 +62,21 @@ class PostForm extends React.Component {
     };
 
     render() {
-        const TweetText = 'You can write Tweets up to 280 characters here.';
         return(
-            <form
-                className="post-form form-group"
-                onSubmit = {this.onSubmit}
-            >
+            <Form onSubmit = {this.onSubmit}>
                 <strong>What do you want for share?</strong>
-                <div>
-                    <div>{this.state.counter}</div>
-                    <textarea
-                        className="form-control"
-                        placeholder={TweetText}
-                        onChange={ this.onTextChange }
-                        maxLength="280"
-                        value={this.state.message}
-                    >
-                </textarea>
-                </div>
-                <button
-                    type="submit"
-                    className="btn btn-default float-right">
-                    <i className="fa fa-twitter"></i>Tweet now
-                </button>
-            </form>
+                <Counter>{this.state.counter}</Counter>
+                <Textarea
+                    placeholder="You can write Tweets up to 280 characters here."
+                    onChange={this.onTextChange}
+                    maxLength="280"
+                    value={this.state.message}
+                />
+                <Button>
+                    <i className="fab fa-twitter"></i>
+                    Tweet now
+                </Button>
+            </Form>
         );
     }
 }

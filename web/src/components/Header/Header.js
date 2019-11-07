@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-function AppHeader() {
+function Header() {
     const Title = styled.h1`
         font-size: 1.8em;
         text-align: center;
@@ -15,4 +15,4 @@ function AppHeader() {
     );
 }
 
-export default AppHeader;
+export default Header;
