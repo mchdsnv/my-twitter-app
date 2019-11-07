@@ -19,6 +19,10 @@ const Button = styled.button`
         border-color: #1B95E0;
         color: #fff;
     }
+    
+    > i {
+        margin-right: 5px;
+    }
     `;
 
 const Counter = styled.span`

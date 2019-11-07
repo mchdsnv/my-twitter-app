@@ -29,6 +29,17 @@ function Post( props ) {
     }
     `;
 
+    const Button = styled.button`
+        padding: 5px 0;
+        border: none;
+        background: transparent;
+    > i {
+        color: #ff6347;
+        margin: 5px 0;
+        font-size: 20px;
+    }
+    `;
+
     return(
         <Row>
             <Column>
@@ -40,7 +51,9 @@ function Post( props ) {
                 <span>{username}</span>
                 <span>{time}</span>
                 <div>{message}</div>
-                <a href="/#" onClick={onDelete}>Delete</a>
+                <Button onClick={onDelete}>
+                    <i className="fa fa-trash" aria-hidden="true"></i>
+                </Button>
             </Column>
         </Row>
     );
