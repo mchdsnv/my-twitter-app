@@ -59,8 +59,8 @@ class App extends React.Component {
                     time
                 };
 
-        this.setState( ( { posts })=> {
-            if( message ) {
+        if (message) {
+            this.setState( ({ posts })=> {
                 const resultArray = [
                     ...posts,
                     post
@@ -69,20 +69,18 @@ class App extends React.Component {
                 return {
                     posts: resultArray
                 }
-            } else {
-                return false;
-            }
-        })
+            })
+        } else {
+            return false;
+        }
     };
 
-    deletePost= (id) => {
+    deletePost = (id) => {
         this.setState( ( { posts } )=> {
-            const postId = posts.findIndex( (post) => post.id === id );
-
-            const before = posts.slice( 0, postId );
-            const after = posts.slice(postId+1);
-
-            const resultArray = [ ...before, ...after ];
+            const postId = posts.findIndex( (post) => post.id === id ),
+                  before = posts.slice(0, postId),
+                  after = posts.slice(postId+1),
+                  resultArray = [ ...before, ...after ];
             return {
                 posts: resultArray
             };

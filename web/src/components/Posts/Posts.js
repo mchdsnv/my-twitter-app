@@ -20,6 +20,16 @@ const PostTitle = styled.span`
     border-bottom: 0;
     background-color: #fff;
     font-weight: bold;
+    + strong {
+        display: inline-block;
+        padding: 5px;
+        border: 1px solid rgba(0,0,0,.125);
+        border-bottom: 0;
+        background-color: #fff;
+        font-weight: bold;
+        text-align: center;
+        font-size: 16px;
+    }
 `;
 
 const PostItem = styled.li`
@@ -44,12 +54,26 @@ function Posts({props, onDelete}) {
         );
     });
 
-    return(
-        <PostList>
-            <PostTitle>Tweets</PostTitle>
-            {posts}
-        </PostList>
-    );
+    if (
+        typeof posts != "undefined"
+        && posts != null
+        && posts.length != null
+        && posts.length > 0
+    ) {
+        return(
+            <PostList>
+                <PostTitle>Tweets</PostTitle>
+                {posts}
+            </PostList>
+        );
+    } else {
+        return(
+            <PostList>
+                <PostTitle>Tweets</PostTitle>
+                <strong>No Posts Yet</strong>
+            </PostList>
+        );
+    }
 }
 
 export default Posts;

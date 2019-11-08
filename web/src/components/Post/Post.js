@@ -1,9 +1,9 @@
 import React from "react";
 import styled from 'styled-components';
-import "./Post.css";
 
-function Post( props ) {
-    const { id, avatar, fullname, username, time, message, onDelete } = props;
+function Post(post) {
+    console.log( post );
+    const { id, avatar, fullname, username, time, message, onDelete } = post;
 
     const Avatar = styled.img`
         width: 50px;

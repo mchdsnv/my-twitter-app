@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const Button = styled.button`
+const ButtonSubmit = styled.button`
     display: block;
     border: 1px solid #1da1f2;
     border-radius: 5px;
@@ -12,7 +12,7 @@ const Button = styled.button`
     color: #fff;
     cursor: pointer;
     font-family: 'FontAwesome';
-    font-size: 14px;
+    font-size: 18px;
     
     :hover {
         background-color: #1B95E0;
@@ -71,15 +71,16 @@ class PostForm extends React.Component {
                 <strong>What do you want for share?</strong>
                 <Counter>{this.state.counter}</Counter>
                 <Textarea
+                    name ="twitter_message"
                     placeholder="You can write Tweets up to 280 characters here."
                     onChange={this.onTextChange}
                     maxLength="280"
                     value={this.state.message}
                 />
-                <Button>
+                <ButtonSubmit>
                     <i className="fab fa-twitter"></i>
                     Tweet now
-                </Button>
+                </ButtonSubmit>
             </Form>
         );
     }
