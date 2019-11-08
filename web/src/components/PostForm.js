@@ -14,6 +14,7 @@ const ButtonSubmit = styled.button`
     cursor: pointer;
     font-family: 'FontAwesome';
     font-size: 18px;
+    outline: none;
     
     :hover {
         background-color: #1B95E0;
@@ -36,6 +37,7 @@ const Textarea = styled.textarea`
     width: 100%;
     padding: 5px;
     box-sizing: border-box;
+    outline: none;
     resize: vertical;
     `;
 
@@ -79,7 +81,7 @@ class PostForm extends React.Component {
                     maxLength="280"
                     value={this.state.message}
                 />
-                <ButtonSubmit>
+                <ButtonSubmit type="submit">
                     <FaTwitter />
                     Tweet now
                 </ButtonSubmit>

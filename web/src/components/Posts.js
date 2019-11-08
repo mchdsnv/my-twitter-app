@@ -1,6 +1,6 @@
 import React from "react";
 
-import Post from "../Post";
+import Post from "./Post";
 import styled from "styled-components";
 
 const PostList = styled.ul`
@@ -39,41 +39,26 @@ const PostItem = styled.li`
     margin-bottom: -1px;
     background-color: #fff;
     border: 1px solid rgba(0,0,0,.125);
-    overflow: auto;
-    `;
+    word-break: break-all;
+`;
 
 function Posts({props, onDelete}) {
-    const posts = props.map((post) => {
-        return(
-            <PostItem key={post.id}>
-                <Post
-                    {...post}
-                    onDelete = { () => onDelete(post.id) }
-                />
-            </PostItem>
-        );
-    });
-
-    if (
-        typeof posts != "undefined"
-        && posts != null
-        && posts.length != null
-        && posts.length > 0
-    ) {
-        return(
-            <PostList>
-                <PostTitle>Tweets</PostTitle>
-                {posts}
-            </PostList>
-        );
-    } else {
-        return(
-            <PostList>
-                <PostTitle>Tweets</PostTitle>
-                <strong>No Posts Yet</strong>
-            </PostList>
-        );
-    }
+    return(
+        <PostList>
+            <PostTitle>Tweets</PostTitle>
+            { props.map((post) => {
+                return(
+                    <PostItem key={post.id}>
+                        <Post
+                            {...post}
+                            onDelete = { () => onDelete(post) }
+                        />
+                    </PostItem>
+                );
+              })
+            }
+        </PostList>
+    );
 }
 
 export default Posts;

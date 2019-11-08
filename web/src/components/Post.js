@@ -3,7 +3,6 @@ import styled from 'styled-components';
 import { FaTrashAlt } from 'react-icons/fa';
 
 function Post(post) {
-    console.log( post );
     const { id, avatar, fullname, username, time, message, onDelete } = post;
 
     const Avatar = styled.img`
@@ -52,9 +51,9 @@ function Post(post) {
             </Column>
             <Column>
                 <input name ="id" type="hidden" value={id} />
-                <strong>{fullname}</strong>
+                <span>{fullname}</span>
                 <span>{username}</span>
-                <span>{time}</span>
+                <small>{time}</small>
                 <div>{message}</div>
                 <ButtonTrash onClick={onDelete}>
                     <FaTrashAlt />

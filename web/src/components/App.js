@@ -1,8 +1,8 @@
 import React from "react";
 
-import Header from "../Header";
-import PostForm from "../PostForm";
-import Posts from "../Posts";
+import Header from "./Header";
+import PostForm from "./PostForm";
+import Posts from "./Posts";
 
 import uuid from "uuid";
 import moment from "moment";
@@ -31,11 +31,11 @@ const Wrapper = styled.div`
 
 class App extends React.Component {
 
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.dateFromDatabase = 1572605803000;
-        this.avatar = require("../avatar.png");
+        this.avatar = require("./avatar.png");
         this.state = {
             posts: [
                 { id: "2c5ea4c0-4067-11e9-8bad-9b1deb4d3b7d'", avatar: this.avatar, fullname: 'Developer', message: 'First tweet', username: '@developer', time: moment(this.dateFromDatabase).fromNow() },
@@ -49,7 +49,7 @@ class App extends React.Component {
         const   date = new Date(),
                 time = moment(date).fromNow(),
                 id = uuid.v1(),
-                avatar = require("../avatar.png"),
+                avatar = require("./avatar.png"),
                 post = {
                     id,
                     avatar,
@@ -59,32 +59,18 @@ class App extends React.Component {
                     time
                 };
 
-        if (message) {
-            this.setState( ({ posts })=> {
-                const resultArray = [
-                    ...posts,
-                    post
-                ];
-
-                return {
-                    posts: resultArray
-                }
-            })
-        } else {
-            return false;
-        }
+        const posts = [ ...this.state.posts, post ];
+        this.setState( { posts });
     };
 
-    deletePost = (id) => {
-        this.setState( ( { posts } )=> {
-            const postId = posts.findIndex( (post) => post.id === id ),
-                  before = posts.slice(0, postId),
-                  after = posts.slice(postId+1),
-                  resultArray = [ ...before, ...after ];
-            return {
-                posts: resultArray
-            };
-        } )
+    deletePost = (post) => {
+        this.setState( (state)=> {
+            const { posts } = state,
+                deletedPostId = posts.findIndex( (deletedPost) => deletedPost.id === post.id ),
+                resultArray = posts.splice(deletedPostId, 1);
+
+            return {...state, resultArray }
+        })
     };
 
     render() {
@@ -93,7 +79,7 @@ class App extends React.Component {
                 <GlobalStyle />
                 <Header />
                 <Posts
-                    props={this.state.posts}
+                    props = {this.state.posts}
                     onDelete = { this.deletePost}
                 />
                 <PostForm
