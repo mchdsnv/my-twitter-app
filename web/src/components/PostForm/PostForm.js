@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { FaTwitter } from 'react-icons/fa';
 
 const ButtonSubmit = styled.button`
     display: block;
@@ -20,8 +21,9 @@ const ButtonSubmit = styled.button`
         color: #fff;
     }
     
-    > i {
+    > svg {
         margin-right: 5px;
+        vertical-align: bottom;
     }
     `;
 
@@ -78,7 +80,7 @@ class PostForm extends React.Component {
                     value={this.state.message}
                 />
                 <ButtonSubmit>
-                    <i className="fab fa-twitter"></i>
+                    <FaTwitter />
                     Tweet now
                 </ButtonSubmit>
             </Form>

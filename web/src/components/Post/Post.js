@@ -1,5 +1,6 @@
 import React from "react";
 import styled from 'styled-components';
+import { FaTrashAlt } from 'react-icons/fa';
 
 function Post(post) {
     console.log( post );
@@ -37,7 +38,7 @@ function Post(post) {
     :focus {
         outline: none;
     }
-    > i {
+    > svg {
         color: #ff6347;
         margin: 5px 0;
         font-size: 20px;
@@ -56,7 +57,7 @@ function Post(post) {
                 <span>{time}</span>
                 <div>{message}</div>
                 <ButtonTrash onClick={onDelete}>
-                    <i className="fa fa-trash" aria-hidden="true"></i>
+                    <FaTrashAlt />
                 </ButtonTrash>
             </Column>
         </Row>
