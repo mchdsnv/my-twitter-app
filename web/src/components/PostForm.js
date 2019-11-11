@@ -2,92 +2,82 @@ import React from "react";
 import styled from "styled-components";
 import { FaTwitter } from 'react-icons/fa';
 
-const ButtonSubmit = styled.button`
-    display: block;
-    border: 1px solid #1da1f2;
-    border-radius: 5px;
-    margin-top: 10px;
-    padding: 10px;
-    float: right;
-    background-color: #1da1f2;
-    color: #fff;
-    cursor: pointer;
-    font-family: 'FontAwesome';
-    font-size: 18px;
-    outline: none;
-    
-    :hover {
-        background-color: #1B95E0;
-        border-color: #1B95E0;
-        color: #fff;
-    }
-    
-    > svg {
-        margin-right: 5px;
-        vertical-align: bottom;
-    }
-    `;
+import { Form, Input, Button } from 'antd';
+
+const { TextArea } = Input;
 
 const Counter = styled.span`
     display: block;
     `;
 
-const Textarea = styled.textarea`
-    height: 100px;
-    width: 100%;
-    padding: 5px;
-    box-sizing: border-box;
-    outline: none;
-    resize: vertical;
-    `;
-
-const Form = styled.form`
-    margin-top: 10px;
-    `;
-
-class PostForm extends React.Component {
+class CustomizedPostForm extends React.Component {
 
     state = {
         message: '',
         counter: 0
     };
 
-    onTextChange = (event) => {
-        this.setState( {
+    handleChange = (event) => {
+        console.log(event.target.value);
+        this.props.form.setFieldsValue( {
                 message: event.target.value,
                 counter: event.target.value.length
             }
         );
+        // this.setState( {
+        //         message: event.target.value,
+        //         counter: event.target.value.length
+        //     }
+        // );
     };
 
-    onSubmit = (event) => {
+    handleSubmit = (event) => {
         event.preventDefault();
-        this.props.onAdd(this.state.message);
-        this.setState({
-            message: '',
-            counter: 0
+        this.props.form.validateFields((error, values) => {
+            if (!error) {
+                this.props.onAdd(this.state.message);
+
+                this.props.form.setFieldsValue({
+                    message: '',
+                    counter: 0
+                });
+            }
         });
     };
 
     render() {
+        const { getFieldDecorator } = this.props.form;
         return(
-            <Form onSubmit = {this.onSubmit}>
-                <strong>What do you want for share?</strong>
-                <Counter>{this.state.counter}</Counter>
-                <Textarea
-                    name ="twitter_message"
-                    placeholder="You can write Tweets up to 280 characters here."
-                    onChange={this.onTextChange}
-                    maxLength="280"
-                    value={this.state.message}
-                />
-                <ButtonSubmit type="submit">
-                    <FaTwitter />
-                    Tweet now
-                </ButtonSubmit>
+            <Form
+                onSubmit = {this.handleSubmit}
+            >
+                <Form.Item>What do you want for share?</Form.Item>
+                <Form.Item><Counter>{this.state.counter}</Counter></Form.Item>
+                <Form.Item label="Message">
+                    {getFieldDecorator('message', {
+                        initialValue: this.props.message,
+                        validateTrigger: ['onChange', 'onBlur'],
+                        rules: [{ required: true, message: 'The message cannot be empty!' }],
+                    })(
+                        <TextArea
+                            name ="twitter_message"
+                            placeholder="You can write Tweets up to 280 characters here."
+                            onChange={this.handleChange}
+                            maxLength="280"
+                        />,
+                    )}
+                </Form.Item>
+                <Form.Item>
+                    <Button type="primary" htmlType="submit">
+                        <FaTwitter />
+                        Tweet now
+                    </Button>
+                </Form.Item>
             </Form>
         );
     }
 }
+
+const PostForm = Form.create({ name: 'post-form' })(CustomizedPostForm);
 
 export default PostForm;

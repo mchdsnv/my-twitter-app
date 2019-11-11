@@ -1,32 +1,23 @@
 import React from "react";
 import styled from 'styled-components';
 import { FaTrashAlt } from 'react-icons/fa';
+import 'antd/dist/antd.css';
+import { Comment, Icon, Tooltip, Row, Col, Avatar  } from 'antd';
+import moment from "moment";
 
 function Post(post) {
     const { id, avatar, fullname, username, time, message, onDelete } = post;
 
-    const Avatar = styled.img`
-        width: 50px;
-        height: 50px;
-        border: 0px solid transparent;
-        border-radius: 25px;
+    const FullName = styled.span`
     `;
 
-    const Row = styled.div`
-        display: -ms-flexbox;
-        display: flex;
-        -ms-flex-wrap: wrap;
-        flex-wrap: wrap;
-        margin-right: -15px;
-        margin-left: -15px;
+    const UserName = styled.span`
     `;
 
-    const Column = styled.div`
-        padding: 5px;
-    > span {
-        margin: 0 5px;
-        color: #657786;
-    }
+    const Message = styled.div`
+    `;
+
+    const Time = styled.span`
     `;
 
     const ButtonTrash = styled.button`
@@ -46,21 +37,46 @@ function Post(post) {
 
     return(
         <Row>
-            <Column>
-                <Avatar src={avatar} alt="avatar" />
-            </Column>
-            <Column>
-                <input name ="id" type="hidden" value={id} />
-                <span>{fullname}</span>
-                <span>{username}</span>
-                <small>{time}</small>
-                <div>{message}</div>
+            <Col span={2}>
+                <Avatar size={64} icon="user" />
+            </Col>
+            <Col span={22}>
+                <Row>
+                    <input name ="id" type="hidden" value={id} />
+                    <FullName>{fullname}</FullName>
+                    <UserName>{username}</UserName>
+                        <Tooltip title={moment().format('YYYY-MM-DD HH:mm:ss')}>
+                            <span>{moment().fromNow()}</span>
+                        </Tooltip>
+                </Row>
+                <Row>
+                <Message>{message}</Message>
                 <ButtonTrash onClick={onDelete}>
                     <FaTrashAlt />
                 </ButtonTrash>
-            </Column>
+                </Row>
+            </Col>
         </Row>
     );
+
+    // return (
+    //     <Comment
+    //         author={<a>{fullname}</a>}
+    //         avatar={
+    //             <Avatar
+    //                 size={64}
+    //                 icon="user"
+    //                 alt="user"
+    //             />
+    //         }
+    //         content={message}
+    //         datetime={
+    //             <Tooltip title={moment().format('YYYY-MM-DD HH:mm:ss')}>
+    //                 <span>{moment().fromNow()}</span>
+    //             </Tooltip>
+    //         }
+    //     />
+    // );
 }
 
 export default Post;

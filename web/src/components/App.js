@@ -1,12 +1,16 @@
 import React from "react";
 
-import Header from "./Header";
 import PostForm from "./PostForm";
 import Posts from "./Posts";
 
 import uuid from "uuid";
 import moment from "moment";
 import styled, { createGlobalStyle } from 'styled-components'
+
+import 'antd/dist/antd.css';
+import { Layout } from 'antd';
+
+const { Header, Footer, Content } = Layout;
 
 const GlobalStyle = createGlobalStyle`
     body {
@@ -20,14 +24,6 @@ const GlobalStyle = createGlobalStyle`
         background-color: #e6ecf0;
     }
 `;
-
-const Wrapper = styled.div`
-    max-width: 1140px;
-    padding-right: 15px;
-    padding-left: 15px;
-    margin-right: auto;
-    margin-left: auto;
-    `;
 
 class App extends React.Component {
 
@@ -65,27 +61,27 @@ class App extends React.Component {
 
     deletePost = (post) => {
         this.setState( (state)=> {
-            const { posts } = state,
-                deletedPostId = posts.findIndex( (deletedPost) => deletedPost.id === post.id ),
-                resultArray = posts.splice(deletedPostId, 1);
-
-            return {...state, resultArray }
+            const posts = [...state.posts],
+                deletedPostId = posts.findIndex( (deletedPost) => deletedPost.id === post.id );
+                posts.splice(deletedPostId, 1);
+            return { posts };
         })
     };
 
     render() {
         return(
-            <Wrapper>
+            <Layout>
                 <GlobalStyle />
-                <Header />
-                <Posts
-                    props = {this.state.posts}
-                    onDelete = { this.deletePost}
-                />
-                <PostForm
-                    onAdd = { this.addPost }
-                />
-            </Wrapper>
+                <Header>My Twitter-like app</Header>
+                <Content>
+                    <Posts
+                        props = {this.state.posts}
+                        onDelete = { this.deletePost}
+                    />
+                    <PostForm onAdd = { this.addPost } />
+                </Content>
+                <Footer>Footer</Footer>
+            </Layout>
         );
     }
 }
