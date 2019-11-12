@@ -1,5 +1,4 @@
 import React from "react";
-
 import Post from "./Post";
 import styled from "styled-components";
 
@@ -20,6 +19,7 @@ const PostTitle = styled.span`
     border-bottom: 0;
     background-color: #fff;
     font-weight: bold;
+    text-align: center
     + strong {
         display: inline-block;
         padding: 5px;
@@ -55,7 +55,7 @@ function Posts({props, onDelete}) {
                         />
                     </PostItem>
                 );
-              })
+            })
             }
         </PostList>
     );

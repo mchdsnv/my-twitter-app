@@ -2,13 +2,13 @@ import React from "react";
 
 import PostForm from "./PostForm";
 import Posts from "./Posts";
+import './App.css';
 
 import uuid from "uuid";
 import moment from "moment";
-import styled, { createGlobalStyle } from 'styled-components'
-
+import { createGlobalStyle } from 'styled-components'
 import 'antd/dist/antd.css';
-import { Layout } from 'antd';
+import { Layout, Row, Col } from 'antd';
 
 const { Header, Footer, Content } = Layout;
 
@@ -30,6 +30,7 @@ class App extends React.Component {
     constructor(props) {
         super(props);
 
+        /* posts from DB */
         this.dateFromDatabase = 1572605803000;
         this.avatar = require("./avatar.png");
         this.state = {
@@ -72,13 +73,22 @@ class App extends React.Component {
         return(
             <Layout>
                 <GlobalStyle />
-                <Header>My Twitter-like app</Header>
+                <Header><h1>My Twitter-like app</h1></Header>
                 <Content>
-                    <Posts
-                        props = {this.state.posts}
-                        onDelete = { this.deletePost}
-                    />
-                    <PostForm onAdd = { this.addPost } />
+                    <Row>
+                        <Col
+                            xs={24}
+                            sm={{ span: 20, offset: 2 }}
+                            md={{ span: 20, offset: 2 }}
+                            lg={{ span: 12, offset: 6 }}
+                        >
+                            <Posts
+                                props = {this.state.posts}
+                                onDelete = { this.deletePost}
+                            />
+                            <PostForm onAdd = { this.addPost } />
+                        </Col>
+                    </Row>
                 </Content>
                 <Footer>Footer</Footer>
             </Layout>

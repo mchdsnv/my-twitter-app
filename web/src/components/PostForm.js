@@ -1,14 +1,7 @@
 import React from "react";
-import styled from "styled-components";
-import { FaTwitter } from 'react-icons/fa';
-
-import { Form, Input, Button } from 'antd';
+import { Form, Input, Button, Icon } from 'antd';
 
 const { TextArea } = Input;
-
-const Counter = styled.span`
-    display: block;
-    `;
 
 class CustomizedPostForm extends React.Component {
 
@@ -18,30 +11,28 @@ class CustomizedPostForm extends React.Component {
     };
 
     handleChange = (event) => {
-        console.log(event.target.value);
-        this.props.form.setFieldsValue( {
-                message: event.target.value,
-                counter: event.target.value.length
-            }
-        );
-        // this.setState( {
-        //         message: event.target.value,
-        //         counter: event.target.value.length
-        //     }
-        // );
+        this.setState({
+            counter: event.target.value.length
+        });
+    };
+
+    handleKeyDown = (event) => {
+        if(event.keyCode === 13) {
+            this.handleSubmit(event);
+        }
     };
 
     handleSubmit = (event) => {
         event.preventDefault();
         this.props.form.validateFields((error, values) => {
             if (!error) {
-                this.props.onAdd(this.state.message);
-
-                this.props.form.setFieldsValue({
-                    message: '',
-                    counter: 0
-                });
+                this.props.onAdd(values.message);
+                this.props.form.resetFields();
             }
+        });
+
+        this.setState({
+            counter: 0
         });
     };
 
@@ -51,26 +42,32 @@ class CustomizedPostForm extends React.Component {
             <Form
                 onSubmit = {this.handleSubmit}
             >
-                <Form.Item>What do you want for share?</Form.Item>
-                <Form.Item><Counter>{this.state.counter}</Counter></Form.Item>
-                <Form.Item label="Message">
+                <Form.Item>
+
+                </Form.Item>
+                <Form.Item>
+                    <span>What do you want for share?</span>
+                    <p>{this.state.counter}</p>
                     {getFieldDecorator('message', {
-                        initialValue: this.props.message,
-                        validateTrigger: ['onChange', 'onBlur'],
                         rules: [{ required: true, message: 'The message cannot be empty!' }],
                     })(
                         <TextArea
+                            autoSize = { {minRows: 5, maxRows: 10} }
                             name ="twitter_message"
                             placeholder="You can write Tweets up to 280 characters here."
                             onChange={this.handleChange}
+                            onKeyDown={this.handleKeyDown}
                             maxLength="280"
+                            autoFocus
                         />,
                     )}
                 </Form.Item>
-                <Form.Item>
-                    <Button type="primary" htmlType="submit">
-                        <FaTwitter />
-                        Tweet now
+                <Form.Item style={{ textAlign: 'right' }}>
+                    <Button
+                        type="primary"
+                        htmlType="submit">
+                            <Icon type="twitter" />
+                            Tweet now
                     </Button>
                 </Form.Item>
             </Form>
