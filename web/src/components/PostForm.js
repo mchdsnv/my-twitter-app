@@ -16,9 +16,9 @@ class CustomizedPostForm extends React.Component {
         });
     };
 
-    handleKeyDown = (event) => {
-        if(event.keyCode === 13) {
-            this.handleSubmit(event);
+    handlePressEnter = (event) => {
+        if(!event.shiftKey) {
+            this.handleSubmit(event);;
         }
     };
 
@@ -56,7 +56,7 @@ class CustomizedPostForm extends React.Component {
                             name ="twitter_message"
                             placeholder="You can write Tweets up to 280 characters here."
                             onChange={this.handleChange}
-                            onKeyDown={this.handleKeyDown}
+                            onPressEnter={this.handlePressEnter}
                             maxLength="280"
                             autoFocus
                         />,
