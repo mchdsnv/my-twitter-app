@@ -43,9 +43,6 @@ class CustomizedPostForm extends React.Component {
                 onSubmit = {this.handleSubmit}
             >
                 <Form.Item>
-
-                </Form.Item>
-                <Form.Item>
                     <span>What do you want for share?</span>
                     <p>{this.state.counter}</p>
                     {getFieldDecorator('message', {
