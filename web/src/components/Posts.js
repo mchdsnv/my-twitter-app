@@ -2,7 +2,7 @@ import React from "react";
 import Post from "./Post";
 import styled from "styled-components";
 
-const PostList = styled.ul`
+const PostsList = styled.ul`
     display: -ms-flexbox;
     display: flex;
     -ms-flex-direction: column;
@@ -12,7 +12,7 @@ const PostList = styled.ul`
     margin-top: 0;
 `;
 
-const PostTitle = styled.span`
+const PostsTitle = styled.span`
     display: inline-block;
     padding: 5px;
     border: 1px solid rgba(0,0,0,.125);
@@ -42,23 +42,21 @@ const PostItem = styled.li`
     word-break: break-all;
 `;
 
-function Posts({props, onDelete}) {
-    return(
-        <PostList>
-            <PostTitle>Tweets</PostTitle>
-            { props.map((post) => {
-                return(
-                    <PostItem key={post.id}>
-                        <Post
-                            {...post}
-                            onDelete = { () => onDelete(post) }
-                        />
-                    </PostItem>
-                );
-            })
-            }
-        </PostList>
-    );
-}
+const Posts = ({posts, onDelete}) => (
+    <PostsList>
+        <PostsTitle>Tweets</PostsTitle>
+        { posts.map((post) => {
+            return(
+                <PostItem key={post.id}>
+                    <Post
+                        {...post}
+                        postDelete = { () => onDelete(post) }
+                    />
+                </PostItem>
+            );
+        })
+        }
+    </PostsList>
+);
 
 export default Posts;
