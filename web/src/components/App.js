@@ -22,8 +22,7 @@ const App = () => {
             setPosts(response);
         }
     }, []);
-
-    // Posts update hook
+    
     useEffect(() => localStorage.setItem('posts', JSON.stringify(posts)), [posts]);
 
     const addPost = (message) => {
