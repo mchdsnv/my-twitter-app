@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useState, useEffect} from "react";
 
 import GlobalStyle from './GlobalStyle'
 import PostForm from "./PostForm";
@@ -12,16 +12,19 @@ import 'antd/dist/antd.css';
 import { Layout, Row, Col } from 'antd';
 
 const { Header, Footer, Content } = Layout;
-const avatar = require("./avatar.png");
 
 const App = () => {
-    const databasePosts = [
-            {id: "2c5ea4c0-4067-11e9-8bad-9b1deb4d3b7d", avatar, fullname: 'Developer', message: 'First tweet', username: '@developer', created_at: moment(1572605803000).fromNow()},
-            {id: "9125a8dc-52ee-365b-a5aa-81b0b3681cf6", avatar, fullname: 'Developer', message: 'Second tweet', username: '@developer', created_at: moment(1572605803000).fromNow()},
-            {id: "c6235813-3ba4-3801-ae84-e0a6ebb7d138", avatar, fullname: 'Developer', message: 'Third tweet', username: '@developer', created_at: moment(1572605803000).fromNow()}
-    ];
+    const [posts, setPosts] = useState([]);
 
-    const [posts, setPosts] = useState(databasePosts);
+    useEffect(() => {
+        const response = JSON.parse(localStorage.getItem('posts')) ;
+        if (response) {
+            setPosts(response);
+        }
+    }, []);
+
+    // Posts update hook
+    useEffect(() => localStorage.setItem('posts', JSON.stringify(posts)), [posts]);
 
     const addPost = (message) => {
         setPosts( [

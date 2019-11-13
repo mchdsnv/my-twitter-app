@@ -16,7 +16,7 @@ const Message = styled.p`
         white-space: pre-wrap;
 `;
 
-const Time = styled.i`
+const Date = styled.i`
         color: #657786;
 `;
 
@@ -50,7 +50,7 @@ const Post = (post) => (
                 />
                 <FullName>{post.fullname}</FullName>
                 <UserName>{post.username}</UserName>
-                <Time>{post.created_at}</Time>
+                <Date>{post.created_at}</Date>
             </Row>
             <Row>
                 <Message>{post.message}</Message>
