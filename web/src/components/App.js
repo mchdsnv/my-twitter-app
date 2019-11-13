@@ -22,7 +22,7 @@ const App = () => {
             setPosts(response);
         }
     }, []);
-    
+
     useEffect(() => localStorage.setItem('posts', JSON.stringify(posts)), [posts]);
 
     const addPost = (message) => {
