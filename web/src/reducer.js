@@ -8,21 +8,21 @@ const initialState = {
 const posts = (state=initialState, action) => {
     switch (action.type) {
         case 'ADD_POST':
-            return [
-                ...state,
-                {
-                    id: action.id,
-                    avatar: action.avatar,
-                    fullname: action.fullname,
-                    username: action.username,
-                    message: action.message,
-                    created_at: action.created_at
-                }];
+            const newPost = {
+                id: action.id,
+                avatar: action.avatar,
+                fullname: action.fullname,
+                username: action.username,
+                message: action.message,
+                created_at: action.created_at
+            }
+
+            return [...state, posts];
 
         case 'DELETE_POST':
-            const state1 = state.filter( post => post.id !== action.post.id );
+            const postsAfterDeleting = state.filter( post => post.id !== action.post.id );
             console.log(action.post.id);
-            return [...state, ...state1]
+            return [...state, ...postsAfterDeleting]
 
         default:
             return state;
