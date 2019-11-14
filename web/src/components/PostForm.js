@@ -6,10 +6,11 @@ import * as actions from '../actions';
 const { TextArea } = Input;
 
 const CustomizedForm = (props) => {
+    console.log(props);
     const { getFieldDecorator } = props.form;
     const [counter, setCounter] = useState(0);
 
-    const handleChange = (event) => { setCounter( event.target.value.length )};
+    const handleChange = (event) => { props.updCounter( event.target.value.length )};
     const handlePressEnter = (event) => ((event.shiftKey) ? false : handleSubmit(event));
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -55,8 +56,9 @@ const CustomizedForm = (props) => {
     );
 };
 
-const mapStateToProps = ({posts}) => {
-    return {posts};
+const mapStateToProps = ({posts, counter}) => {
+    console.log(counter);
+    return {posts, counter};
 };
 
 export default connect(mapStateToProps, actions)(Form.create({ name: 'post-form' })(CustomizedForm));
