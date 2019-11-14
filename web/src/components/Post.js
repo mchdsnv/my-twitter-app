@@ -2,6 +2,8 @@ import React from "react";
 import styled from 'styled-components';
 import 'antd/dist/antd.css';
 import { Row, Col, Avatar, Button } from 'antd';
+import {connect} from 'react-redux';
+import * as actions from '../actions';
 
 const FullName = styled.span`
         font-weight: bold;
@@ -20,7 +22,7 @@ const Date = styled.i`
         color: #657786;
 `;
 
-const Post = (post) => (
+const Post = ({post, delPost}) => (
     <Row>
         <Col
             xs={24}
@@ -55,7 +57,7 @@ const Post = (post) => (
             <Row>
                 <Message>{post.message}</Message>
                 <Button
-                    onClick={post.postDelete}
+                    onClick={()=>delPost(post)}
                     icon="delete"
                     type="danger"
                     ghost="true"
@@ -66,4 +68,4 @@ const Post = (post) => (
     </Row>
 );
 
-export default Post;
+export default connect(null, actions)(Post);

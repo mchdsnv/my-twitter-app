@@ -1,5 +1,7 @@
 import React, {useState} from "react";
 import { Form, Input, Button, Icon } from 'antd';
+import {connect} from 'react-redux';
+import * as actions from '../actions';
 
 const { TextArea } = Input;
 
@@ -13,11 +15,10 @@ const CustomizedForm = (props) => {
         event.preventDefault();
         props.form.validateFields((error, values) => {
             if (!error) {
-                props.onAdd(values.message);
+                props.addPost(values.message);
                 props.form.resetFields();
             }
         });
-
         setCounter(0);
     };
 
@@ -54,6 +55,8 @@ const CustomizedForm = (props) => {
     );
 };
 
-const PostForm = Form.create({ name: 'post-form' })(CustomizedForm);
+const mapStateToProps = ({posts}) => {
+    return {posts};
+};
 
-export default PostForm;
+export default connect(mapStateToProps, actions)(Form.create({ name: 'post-form' })(CustomizedForm));

@@ -42,15 +42,14 @@ const PostItem = styled.li`
     word-break: break-all;
 `;
 
-const Posts = ({posts, onDelete}) => (
+const Posts = ({posts}) => (
     <PostsList>
         <PostsTitle>Tweets</PostsTitle>
         { posts.map((post) => {
             return(
                 <PostItem key={post.id}>
                     <Post
-                        {...post}
-                        postDelete = { () => onDelete(post) }
+                        post={post}
                     />
                 </PostItem>
             );

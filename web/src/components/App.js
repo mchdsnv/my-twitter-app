@@ -5,42 +5,21 @@ import PostForm from "./PostForm";
 import Posts from "./Posts";
 import './App.css';
 
-import uuid from "uuid";
-import moment from "moment";
-
 import 'antd/dist/antd.css';
 import { Layout, Row, Col } from 'antd';
-
 const { Header, Footer, Content } = Layout;
 
 const App = () => {
     const [posts, setPosts] = useState([]);
 
-    useEffect(() => {
-        const response = JSON.parse(localStorage.getItem('posts')) ;
-        if (response) {
-            setPosts(response);
-        }
-    }, []);
-
-    useEffect(() => localStorage.setItem('posts', JSON.stringify(posts)), [posts]);
-
-    const addPost = (message) => {
-        setPosts( [
-            ...posts,
-            {
-                id: uuid.v1(),
-                avatar: require("./avatar.png"),
-                fullname: 'User',
-                message,
-                username: '@user',
-                created_at: moment(new Date()).fromNow()
-            }] );
-    };
-
-    const deletePost = (deletedPost) => {
-        setPosts(posts.filter( post => post.id !== deletedPost.id ));
-    };
+    // useEffect(() => {
+    //     const response = JSON.parse(localStorage.getItem('posts')) ;
+    //     if (response) {
+    //         setPosts(response);
+    //     }
+    // }, []);
+    //
+    // useEffect(() => localStorage.setItem('posts', JSON.stringify(posts)), [posts]);
 
     return (
         <Layout>
@@ -56,9 +35,8 @@ const App = () => {
                     >
                         <Posts
                             posts={posts}
-                            onDelete={deletePost}
                         />
-                        <PostForm onAdd={addPost}/>
+                        <PostForm />
                     </Col>
                 </Row>
             </Content>
