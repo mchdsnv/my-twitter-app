@@ -72,7 +72,7 @@ class PostController extends Controller
     public function update(Request $request, $id)
     {
         $post = Post::find($id);
-        return (is_null($post)) ? response()->json("The specified post doesn\'t exist", 404) : $post->update($request->post());
+        return (is_null($post)) ? response()->json("The specified post doesn't exist", 404) : $post->update($request->post());
     }
 
     /**
@@ -84,6 +84,6 @@ class PostController extends Controller
     public function destroy($id)
     {
         $post = Post::find($id);
-        return (is_null($post)) ? response()->json("The specified post doesn\'t exist", 404) : Post::destroy($id);
+        return (is_null($post)) ? response()->json("The specified post doesn't exist", 404) : Post::destroy($id);
     }
 }
