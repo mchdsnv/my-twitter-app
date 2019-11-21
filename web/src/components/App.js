@@ -2,6 +2,11 @@ import React from "react";
 
 import {connect} from 'react-redux';
 import {fetchPosts} from '../store/twitter/twitter-actions';
+import {
+    BrowserRouter as Router,
+    Route,
+    Link,
+} from 'react-router-dom';
 
 import GlobalStyle from './GlobalStyle'
 import PostForm from "./PostForm";
@@ -26,26 +31,32 @@ class App extends React.Component {
     }
 
     render() {
-        const posts = [];
         return (
-            <Layout>
-                <GlobalStyle/>
-                <Header><h1>My Twitter-like app</h1></Header>
-                <Content>
-                    <Row>
-                        <Col
-                            xs={24}
-                            sm={{span: 20, offset: 2}}
-                            md={{span: 20, offset: 2}}
-                            lg={{span: 12, offset: 6}}
-                        >
-                            <Posts />
-                            <PostForm />
-                        </Col>
-                    </Row>
-                </Content>
-                <Footer>Footer</Footer>
-            </Layout>
+            <Router>
+                <Layout>
+                    <GlobalStyle/>
+                    <Header><h1>My Twitter-like app</h1></Header>
+                    <Route exact path="/" component={WelcomePage}/>
+                    <Route path="/feed" component={FeedPage}/>
+                    <Route path="/login" component={LoginPage}/>
+                    <Route path="/logout" component={LogoutPage}/>
+                    <Route path="/registration" component={SignUpPage}/>
+                    <Content>
+                        <Row>
+                            <Col
+                                xs={24}
+                                sm={{span: 20, offset: 2}}
+                                md={{span: 20, offset: 2}}
+                                lg={{span: 12, offset: 6}}
+                            >
+                                <Posts />
+                                <PostForm />
+                            </Col>
+                        </Row>
+                    </Content>
+                    <Footer>Footer</Footer>
+                </Layout>
+            </Router>
         );
     }
 

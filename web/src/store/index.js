@@ -1,6 +1,6 @@
 import {createStore} from "redux";
-import reducers from "./twitter/twitter-create-feed-reducer";
+import reducer from "./twitter/twitter-create-feed-reducer";
 
-const store = createStore(reducers);
+const store = createStore(reducer);
 
 export default store;
