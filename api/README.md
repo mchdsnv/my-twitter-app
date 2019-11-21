@@ -1,1 +1,1 @@
-This is Twitter-like application
+My api
