@@ -4,7 +4,7 @@ import moment from "moment";
 export const addPost = (message) => ({
     type: "ADD_POST",
     id: uuid.v1(),
-    avatar: require("./components/avatar.png"),
+    avatar: require("../../components/avatar.png"),
     fullname: 'User',
     message,
     username: '@user',

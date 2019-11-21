@@ -5,7 +5,7 @@ const initialState = {
     counter: 0
 }
 
-const posts = (state=initialState, action) => {
+const posts = (state=initialState.posts, action) => {
     switch (action.type) {
         case 'ADD_POST':
             return [
@@ -28,7 +28,7 @@ const posts = (state=initialState, action) => {
     }
 };
 
-const counter = (state=initialState, action) => {
+const counter = (state=initialState.counter, action) => {
     switch (action.type) {
         case 'UPDATE_COUNTER':
             return action.counter;
@@ -43,4 +43,5 @@ const reducers = combineReducers({
     counter
 });
 
+console.log(initialState);
 export default reducers;
