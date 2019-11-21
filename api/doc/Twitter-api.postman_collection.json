@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "7961bfea-21ec-4fe1-a794-2611a1c906c2",
+		"_postman_id": "10697c61-a6b6-4ab6-988b-922ca8327dff",
 		"name": "Twitter-api",
 		"description": "Twitter-api",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
@@ -19,7 +19,7 @@
 			"response": []
 		},
 		{
-			"name": "/api/posts/id",
+			"name": "/api/posts/{id}",
 			"request": {
 				"method": "POST",
 				"header": [
@@ -58,7 +58,7 @@
 			"response": []
 		},
 		{
-			"name": "/adi/posts/id",
+			"name": "/adi/posts/{id}",
 			"request": {
 				"method": "DELETE",
 				"header": [],
@@ -83,7 +83,7 @@
 			"response": []
 		},
 		{
-			"name": "/api/posts/id",
+			"name": "/api/posts/{id}",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -107,7 +107,7 @@
 			"response": []
 		},
 		{
-			"name": "/api/posts/id",
+			"name": "/api/posts/{id}",
 			"request": {
 				"method": "PUT",
 				"header": [
