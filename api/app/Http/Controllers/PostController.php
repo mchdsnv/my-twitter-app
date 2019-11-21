@@ -14,7 +14,8 @@ class PostController extends Controller
      */
     public function index()
     {
-        return Post::paginate(5);
+        $posts = Post::paginate(5);
+        return (is_null($posts)) ? response()->json('No posts found', 404) : $posts;
     }
 
     /**
@@ -46,7 +47,8 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        return Post::findOrFail($id);
+        $post = Post::find($id);
+        return (is_null($post)) ? response()->json('Post not found', 404) : $post;
     }
 
     /**
@@ -69,9 +71,8 @@ class PostController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $post = Post::findOrFail($id);
-        $post->update($request->post());
-        return $post;
+        $post = Post::find($id);
+        return (is_null($post)) ? response()->json('The specified post doesn\'t exist', 404) : $post->update($request->post());
     }
 
     /**
@@ -82,6 +83,7 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        return Post::destroy($id);
+        $post = Post::find($id);
+        return (is_null($post)) ? response()->json('The specified post doesn\'t exist', 404) : Post::destroy($id);
     }
 }
