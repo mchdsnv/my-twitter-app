@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import 'antd/dist/antd.css';
 import { Row, Col, Avatar, Button } from 'antd';
 import {connect} from 'react-redux';
-import * as actions from '../actions';
+import * as actions from '../store/twitter/twitter-actions';
 
 const FullName = styled.span`
         font-weight: bold;

@@ -2,6 +2,8 @@ import React from "react";
 import Post from "./Post";
 import styled from "styled-components";
 
+import {connect} from "react-redux"
+
 const PostsList = styled.ul`
     display: -ms-flexbox;
     display: flex;
@@ -53,9 +55,13 @@ const Posts = ({posts}) => (
                     />
                 </PostItem>
             );
-        })
+         })
         }
     </PostsList>
 );
 
-export default Posts;
+const mapStateToProps = ({posts}) => {
+    return {posts}
+};
+
+export default connect(mapStateToProps)(Posts);

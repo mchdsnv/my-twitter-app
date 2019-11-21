@@ -1,47 +1,19 @@
-import { combineReducers } from 'redux';
+import {ADD_POST, DELETE_POST, UPDATE_COUNTER} from "./twitter-actions";
+
 
 const initialState = {
     posts: [],
     counter: 0
-}
+};
 
-const posts = (state=initialState.posts, action) => {
+const posts = (state=initialState, action) => {
     switch (action.type) {
-        case 'ADD_POST':
-            return [
-                ...state,
-                {
-                    id: action.id,
-                    avatar: action.avatar,
-                    fullname: action.fullname,
-                    username: action.username,
-                    message: action.message,
-                    created_at: action.created_at
-                }
-            ];
-
-        case 'DELETE_POST':
-            return state.filter( post => post.id !== action.post.id )
+        case DELETE_POST:
+            return state.posts.filter( post => post.id !== action.payload.post.id )
 
         default:
             return state;
     }
 };
 
-const counter = (state=initialState.counter, action) => {
-    switch (action.type) {
-        case 'UPDATE_COUNTER':
-            return action.counter;
-
-        default:
-            return state;
-    }
-};
-
-const reducers = combineReducers({
-    posts,
-    counter
-});
-
-console.log(initialState);
-export default reducers;
+export default posts;
