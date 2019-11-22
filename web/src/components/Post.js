@@ -14,7 +14,7 @@ const UserName = styled.span`
         color: #657786;
 `;
 
-const Message = styled.p` 
+const Content = styled.p` 
         white-space: pre-wrap;
 `;
 
@@ -22,7 +22,7 @@ const Date = styled.i`
         color: #657786;
 `;
 
-const Post = ({post, delPost}) => (
+const Post = ({post, editPost, delPost}) => (
     <Row>
         <Col
             xs={24}
@@ -55,7 +55,14 @@ const Post = ({post, delPost}) => (
                 <Date>{post.created_at}</Date>
             </Row>
             <Row>
-                <Message>{post.message}</Message>
+                <Content>{post.content}</Content>
+                <Button
+                    onClick={()=>editPost(post)}
+                    icon="edit"
+                    type="primary"
+                    ghost="true"
+                >
+                </Button>
                 <Button
                     onClick={()=>delPost(post)}
                     icon="delete"

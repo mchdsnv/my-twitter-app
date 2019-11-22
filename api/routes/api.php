@@ -5,7 +5,7 @@ use App\Http\Controllers;
 
 /*
 |--------------------------------------------------------------------------
-| API Routes
+| API Navigation
 |--------------------------------------------------------------------------
 |
 | Here is where you can register API routes for your application. These

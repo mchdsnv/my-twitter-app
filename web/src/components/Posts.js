@@ -3,6 +3,8 @@ import Post from "./Post";
 import styled from "styled-components";
 
 import {connect} from "react-redux"
+import EditPostForm from "./EditPostForm";
+import {Row} from "antd";
 
 const PostsList = styled.ul`
     display: -ms-flexbox;
@@ -49,11 +51,7 @@ const Posts = ({posts}) => (
         <PostsTitle>Tweets</PostsTitle>
         { posts.map((post) => {
             return(
-                <PostItem key={post.id}>
-                    <Post
-                        post={post}
-                    />
-                </PostItem>
+                post.editing ? <PostItem key={post.id}><Post post={post} /><EditPostForm post={post} key={post.id} /></PostItem> : <PostItem key={post.id}><Post post={post} /> </PostItem>
             );
          })
         }

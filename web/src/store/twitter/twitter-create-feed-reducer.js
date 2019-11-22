@@ -1,5 +1,4 @@
-import {combineReducers} from "redux";
-import {ADD_POST, FETCH_POSTS, DELETE_POST, UPDATE_COUNTER} from "./twitter-actions";
+import {ADD_POST, FETCH_POSTS, DELETE_POST, UPDATE_COUNTER, EDIT_POST, UPDATE_POST} from "./twitter-actions";
 
 const initialState = {
     posts: [],
@@ -8,16 +7,30 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
+        case ADD_POST:
+            console.log(action.payload.post);
+            return {
+                ...state,
+                posts: [...state.posts, action.payload.post]
+            };
+
         case FETCH_POSTS:
             return {
                 ...state,
                 posts: action.payload.posts
             };
 
-        case ADD_POST:
+        case EDIT_POST:
             return {
                 ...state,
-                posts: [...state.posts, action.payload.post]
+                posts: state.posts.map(post => post.id === action.payload.post.id ? { ...post, editing: !post.editing } : post)
+            };
+
+        case UPDATE_POST:
+            console.log(action.payload);
+            return {
+                ...state,
+                posts: state.posts.map(post => post.id === action.payload.post.id ? {...post, content: action.payload.content, editing: !post.editing} : post)
             };
 
         case DELETE_POST:

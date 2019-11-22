@@ -21,10 +21,26 @@ class PostRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(PostRequest $request)
     {
-        return [
-            //
+        $rules = [
+            'message' => 'required|string|unique:post,title',
         ];
+
+        switch ($this->getMethod())
+        {
+            case 'GET':
+                return [];
+            case 'POST':
+                return $rules;
+            case 'PUT':
+                return [
+                        'id' => 'required|integer|exists:post,id',
+                    ] + $rules;
+            case 'DELETE':
+                return [
+                    'id' => 'required|integer|unique:post,id'
+                ];
+        }
     }
 }

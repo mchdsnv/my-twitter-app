@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
-use Illuminate\Http\Request;
+use App\Http\Requests\PostRequest;
 
 class PostController extends Controller
 {
@@ -33,7 +33,7 @@ class PostController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(PostRequest $request)
     {
         return Post::create($request->post());
     }
@@ -46,7 +46,7 @@ class PostController extends Controller
      */
     public function show($id)
     {
-        return Post::findOrFail($id);;
+        return Post::findOrFail($id);
     }
 
     /**
@@ -67,7 +67,7 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(PostRequest $request, $id)
     {
         $post = Post::findOrFail($id);
         $post->update($request->post());
@@ -82,6 +82,7 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        return Post::destroy($id);
+        $post = Post::findOrFail($id);
+        if($post->delete()) return response(null, 204);
     }
 }
