@@ -16,7 +16,6 @@ class PostController extends Controller
     {
         return Post::paginate(5);
     }
-
     /**
      * Show the form for creating a new resource.
      *
@@ -26,7 +25,6 @@ class PostController extends Controller
     {
         //
     }
-
     /**
      * Store a newly created resource in storage.
      *
@@ -37,7 +35,6 @@ class PostController extends Controller
     {
         return Post::create($request->post());
     }
-
     /**
      * Display the specified resource.
      *
@@ -48,7 +45,6 @@ class PostController extends Controller
     {
         return Post::findOrFail($id);
     }
-
     /**
      * Show the form for editing the specified resource.
      *
@@ -59,7 +55,6 @@ class PostController extends Controller
     {
         //
     }
-
     /**
      * Update the specified resource in storage.
      *
@@ -73,7 +68,6 @@ class PostController extends Controller
         $post->update($request->post());
         return $post;
     }
-
     /**
      * Remove the specified resource from storage.
      *
@@ -82,7 +76,6 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        $post = Post::findOrFail($id);
-        if($post->delete()) return response(null, 204);
+        return Post::destroy($id);
     }
 }

@@ -52,8 +52,6 @@ class Handler extends ExceptionHandler
                 'error' => 'Post not found'
             ], 404);
         }
-
         return parent::render($request, $exception);
     }
-
 }
