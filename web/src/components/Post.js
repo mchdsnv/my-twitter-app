@@ -22,7 +22,7 @@ const Date = styled.i`
         color: #657786;
 `;
 
-const Post = ({post, editPost, delPost}) => (
+const Post = ({post, editPost, deletePost}) => (
     <Row>
         <Col
             xs={24}
@@ -64,7 +64,7 @@ const Post = ({post, editPost, delPost}) => (
                 >
                 </Button>
                 <Button
-                    onClick={()=>delPost(post)}
+                    onClick={()=>deletePost(post)}
                     icon="delete"
                     type="danger"
                     ghost="true"

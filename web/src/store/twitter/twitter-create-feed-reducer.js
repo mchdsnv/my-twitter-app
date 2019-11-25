@@ -1,4 +1,14 @@
-import {ADD_POST, FETCH_POSTS, DELETE_POST, UPDATE_COUNTER, EDIT_POST, UPDATE_POST} from "./twitter-actions";
+import {
+    ADD_POST,
+    ADD_POST_SUCCESS,
+    FETCH_POSTS,
+    DELETE_POST_SUCCESS,
+    UPDATE_COUNTER,
+    EDIT_POST,
+    UPDATE_POST,
+    UPDATE_POST_SUCCESS,
+    FETCH_POSTS_SUCCESS
+} from "./twitter-actions";
 
 const initialState = {
     posts: [],
@@ -7,14 +17,15 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case ADD_POST:
+        case ADD_POST_SUCCESS:
             console.log(action.payload.post);
             return {
                 ...state,
                 posts: [...state.posts, action.payload.post]
             };
 
-        case FETCH_POSTS:
+        case FETCH_POSTS_SUCCESS:
+            console.log(action.payload.posts);
             return {
                 ...state,
                 posts: action.payload.posts
@@ -26,14 +37,15 @@ const reducer = (state = initialState, action) => {
                 posts: state.posts.map(post => post.id === action.payload.post.id ? { ...post, editing: !post.editing } : post)
             };
 
-        case UPDATE_POST:
+        case UPDATE_POST_SUCCESS:
             console.log(action.payload);
             return {
                 ...state,
                 posts: state.posts.map(post => post.id === action.payload.post.id ? {...post, content: action.payload.content, editing: !post.editing} : post)
             };
 
-        case DELETE_POST:
+        case DELETE_POST_SUCCESS:
+            console.log(action.payload);
             return {
                 ...state,
                 posts: state.posts.filter(post => post.id !== action.payload.post.id)
