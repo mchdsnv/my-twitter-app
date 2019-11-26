@@ -11,6 +11,7 @@ const Navigation = () => {
     return (
         <Switch>
             <Route exact path="/" component={Home} />
+            <Route path="/home" component={Home} />
             <Route path="/feed" component={Feed} />
             <Route path="/login" component={Login} />
             <Route component={Notfound} />

@@ -3,7 +3,7 @@ import React from "react";
 import { Form, Icon, Input, Button, Checkbox } from 'antd';
 import './LoginForm.css';
 
-class NormalLoginForm extends React.Component {
+class LoginForm extends React.Component {
     handleSubmit = e => {
         e.preventDefault();
         this.props.form.validateFields((err, values) => {
@@ -49,6 +49,4 @@ class NormalLoginForm extends React.Component {
     }
 }
 
-const WrappedNormalLoginForm = Form.create({ name: 'normal_login' })(NormalLoginForm);
-
-export default WrappedNormalLoginForm;
+export default Form.create({ name: 'login-form' })(LoginForm);
