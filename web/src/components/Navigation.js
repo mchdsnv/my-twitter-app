@@ -4,6 +4,7 @@ import Home from "./Pages/Home";
 import Feed from "./Pages/Feed";
 import Notfound from "./Pages/Notfound";
 import Login from "./Pages/Login";
+import Signup from "./Pages/Signup";
 
 import {Route, Switch } from 'react-router-dom';
 
@@ -14,6 +15,7 @@ const Navigation = () => {
             <Route path="/home" component={Home} />
             <Route path="/feed" component={Feed} />
             <Route path="/login" component={Login} />
+            <Route path="/signup" component={Signup} />
             <Route component={Notfound} />
         </Switch>
     );

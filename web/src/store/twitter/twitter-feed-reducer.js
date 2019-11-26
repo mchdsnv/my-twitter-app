@@ -46,7 +46,8 @@ const reducer = (state = initialState, action) => {
         case UPDATE_POST_SUCCESS:
             return {
                 ...state,
-                posts: state.posts.map(post => post.id === action.payload.post.id ? {...post, content: action.payload.content, editing: !post.editing} : post)
+                posts: state.posts.map(post => post.id === action.payload.post.id ? {...post, content: action.payload.content, editing: !post.editing} : post),
+                counter: 0
             };
 
         case DELETE_POST_SUCCESS:
