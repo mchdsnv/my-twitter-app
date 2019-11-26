@@ -5,6 +5,8 @@ import { Row, Col, Avatar, Button } from 'antd';
 import {connect} from 'react-redux';
 import * as actions from '../store/twitter/twitter-actions';
 
+import moment from "moment";
+
 const FullName = styled.span`
         font-weight: bold;
 `;
@@ -53,9 +55,9 @@ const Post = ({post, editPost, deletePost}) => (
                     type="hidden"
                     value={post.id}
                 />
-                <FullName>{post.fullname}</FullName>
-                <UserName>{post.username}</UserName>
-                <Date>{post.created_at}</Date>
+                <FullName>User</FullName>
+                <UserName>@user</UserName>
+                <Date>{moment( post.created_at, 'yyyy-mm-dd h:mm:ss').fromNow()}</Date>
                 <ButtonGroup>
                     <Button
                         onClick={()=>editPost(post)}

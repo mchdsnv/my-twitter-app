@@ -1,5 +1,3 @@
-import uuid from "uuid";
-import moment from "moment";
 import axios from 'axios';
 
 export const  EDIT_POST = 'EDIT_POST';
@@ -21,7 +19,7 @@ export const addPost = (content) => {
                     post: {
                         id: data.id,
                         content: data.content,
-                        created_at: moment(new Date()).fromNow()
+                        created_at: data.created_at
                     }
                 }
             });
