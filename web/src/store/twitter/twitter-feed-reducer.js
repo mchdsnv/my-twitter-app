@@ -1,19 +1,81 @@
-import {ADD_POST, DELETE_POST, UPDATE_COUNTER} from "./twitter-actions";
-
+import {
+    ADD_POST,
+    ADD_POST_SUCCESS,
+    ADD_POST_FAILURE,
+    FETCH_POSTS,
+    FETCH_POSTS_SUCCESS,
+    FETCH_POSTS_FAILURE,
+    UPDATE_POST,
+    UPDATE_POST_SUCCESS,
+    UPDATE_POST_FAILURE,
+    DELETE_POST,
+    DELETE_POST_SUCCESS,
+    DELETE_POST_FAILURE,
+    UPDATE_COUNTER,
+    EDIT_POST
+} from "./twitter-actions";
 
 const initialState = {
     posts: [],
-    counter: 0
+    counter: 0,
+    editing: false,
+    error: []
 };
 
-const posts = (state=initialState, action) => {
+const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case DELETE_POST:
-            return state.posts.filter( post => post.id !== action.payload.post.id )
+        case ADD_POST_SUCCESS:
+            return {
+                ...state,
+                posts: [...state.posts, action.payload.post]
+            };
 
+        case FETCH_POSTS_SUCCESS:
+            return {
+                ...state,
+                posts: action.payload.posts
+            };
+
+        case EDIT_POST:
+            return {
+                ...state,
+                posts: state.posts.map(post => post.id === action.payload.post.id ? { ...post, editing: !post.editing } : post)
+            };
+
+        case UPDATE_POST_SUCCESS:
+            return {
+                ...state,
+                posts: state.posts.map(post => post.id === action.payload.post.id ? {...post, content: action.payload.content, editing: !post.editing} : post)
+            };
+
+        case DELETE_POST_SUCCESS:
+            return {
+                ...state,
+                posts: state.posts.filter(post => post.id !== action.payload.post.id)
+            };
+
+        case UPDATE_COUNTER:
+            return {
+                ...state,
+                counter: action.payload.counter
+            };
+
+        case ADD_POST_FAILURE:
+        case FETCH_POSTS_FAILURE:
+        case DELETE_POST_FAILURE:
+        case UPDATE_POST_FAILURE:
+            return {
+                ...state,
+                error: [...state.error, action.error]
+            };
+
+        case DELETE_POST:
+        case UPDATE_POST:
+        case ADD_POST:
+        case FETCH_POSTS:
         default:
             return state;
     }
 };
 
-export default posts;
+export default reducer;

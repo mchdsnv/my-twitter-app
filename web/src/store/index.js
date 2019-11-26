@@ -1,5 +1,5 @@
 import {createStore, applyMiddleware} from "redux";
-import reducer from "./twitter/twitter-create-feed-reducer";
+import reducer from "./twitter/twitter-feed-reducer";
 import logger from 'redux-logger'
 import ReduxThunk from 'redux-thunk';
 

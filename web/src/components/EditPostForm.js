@@ -23,7 +23,6 @@ const EditPostForm = (props) => {
             onSubmit = {handleSubmit}
         >
             <Form.Item>
-                <span>What do you want for share?</span>
                 <p>{props.counter}</p>
                 {getFieldDecorator('content', {
                     rules: [{ required: true,
@@ -46,7 +45,7 @@ const EditPostForm = (props) => {
                     type="primary"
                     htmlType="submit">
                     <Icon type="twitter" />
-                    Tweet now
+                    Update
                 </Button>
             </Form.Item>
         </Form>

@@ -46,7 +46,7 @@ const AddPostForm = (props) => {
                     type="primary"
                     htmlType="submit">
                     <Icon type="twitter" />
-                    Tweet now
+                    Post now
                 </Button>
             </Form.Item>
         </Form>

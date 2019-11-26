@@ -22,6 +22,13 @@ const Date = styled.i`
         color: #657786;
 `;
 
+const ButtonGroup = styled.p`
+    float: right;
+    > button + button {
+        margin-left: 10px;
+    }
+`;
+
 const Post = ({post, editPost, deletePost}) => (
     <Row>
         <Col
@@ -29,20 +36,16 @@ const Post = ({post, editPost, deletePost}) => (
             sm={20}
             md={4}
             lg={4}
-            xl={2}
+            xl={3}
         >
-            <Avatar
-                size={64}
-                src={post.avatar}
-                alt="avatar"
-            />
+            <Avatar size={64} icon="user" />
         </Col>
         <Col
             xs={24}
             sm={20}
             md={20}
             lg={20}
-            xl={22}
+            xl={21}
         >
             <Row>
                 <input
@@ -53,23 +56,25 @@ const Post = ({post, editPost, deletePost}) => (
                 <FullName>{post.fullname}</FullName>
                 <UserName>{post.username}</UserName>
                 <Date>{post.created_at}</Date>
+                <ButtonGroup>
+                    <Button
+                        onClick={()=>editPost(post)}
+                        icon="edit"
+                        type="primary"
+                        ghost="true"
+                    >
+                    </Button>
+                    <Button
+                        onClick={()=>deletePost(post)}
+                        icon="delete"
+                        type="danger"
+                        ghost="true"
+                    >
+                    </Button>
+                </ButtonGroup>
             </Row>
             <Row>
                 <Content>{post.content}</Content>
-                <Button
-                    onClick={()=>editPost(post)}
-                    icon="edit"
-                    type="primary"
-                    ghost="true"
-                >
-                </Button>
-                <Button
-                    onClick={()=>deletePost(post)}
-                    icon="delete"
-                    type="danger"
-                    ghost="true"
-                >
-                </Button>
             </Row>
         </Col>
     </Row>

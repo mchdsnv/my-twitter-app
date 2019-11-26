@@ -1,8 +1,8 @@
 import React from "react";
 
 const Notfound = () => (
-    <div>
-        <h2>Notfound</h2>
+    <div style={{ background: '#fff', minHeight: 280, textAlign: 'center' }}>
+        <h2>The page was not found</h2>
     </div>
 );
 
