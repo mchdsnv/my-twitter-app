@@ -3,7 +3,7 @@ import {BrowserRouter as Router } from 'react-router-dom';
 import {connect} from 'react-redux';
 
 import 'antd/dist/antd.css';
-import {Col, Layout, Menu, Row} from 'antd';
+import {Col, Layout, Row} from 'antd';
 
 import './App.css';
 import {fetchPosts} from '../store/twitter/twitter-actions';
@@ -11,7 +11,7 @@ import GlobalStyle from './GlobalStyle'
 import NavigationMenu from './NavigationMenu';
 import Navigation from './Navigation';
 
-const { Header, Content, Sider } = Layout;
+const { Header, Content } = Layout;
 
 class App extends React.Component {
 

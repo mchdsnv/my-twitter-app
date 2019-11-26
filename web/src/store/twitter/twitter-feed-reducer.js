@@ -27,7 +27,8 @@ const reducer = (state = initialState, action) => {
         case ADD_POST_SUCCESS:
             return {
                 ...state,
-                posts: [...state.posts, action.payload.post]
+                posts: [...state.posts, action.payload.post],
+                counter: 0
             };
 
         case FETCH_POSTS_SUCCESS:
