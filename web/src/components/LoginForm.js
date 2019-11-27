@@ -1,16 +1,20 @@
 import React from "react";
+import {connect} from 'react-redux';
+import * as actions from '../store/twitter/twitter-actions';
 
 import { Form, Icon, Input, Button } from 'antd';
 import './LoginForm.css';
 
 const LoginForm = (props) => {
     const { getFieldDecorator } = props.form;
+
     const handlePressEnter = (event) => ((event.shiftKey) ? false : handleSubmit(event));
     const handleSubmit = (event) => {
         event.preventDefault();
         props.form.validateFields((error, values) => {
             if (!error) {
                 console.log('Received values of form: ', values);
+                props.userLogin(values);
             }
         });
     };
@@ -20,12 +24,12 @@ const LoginForm = (props) => {
             onSubmit={handleSubmit}
             className="login-form">
             <Form.Item>
-                {getFieldDecorator('username', {
-                    rules: [{ required: true, message: 'Please input your username!' }],
+                {getFieldDecorator('email', {
+                    rules: [{ required: true, message: 'Please input your E-mail!' }],
                 })(
                     <Input
-                        prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                        placeholder="Username"
+                        prefix={<Icon type="mail" style={{ color: 'rgba(0,0,0,.25)' }} />}
+                        placeholder="Email"
                         onPressEnter={handlePressEnter}
                     />,
                 )}
@@ -47,7 +51,6 @@ const LoginForm = (props) => {
                     type="primary"
                     htmlType="submit"
                     className="login-form-button"
-                    on
                 >
                     Log in
                 </Button>
@@ -57,4 +60,11 @@ const LoginForm = (props) => {
     );
 };
 
-export default Form.create({ name: 'login-form' })(LoginForm);
+const mapStateToProps = (state) => {
+    console.log(state);
+    return {
+        //
+    };
+};
+
+export default connect(mapStateToProps, actions)(Form.create({ name: 'login-form' })(LoginForm));

@@ -7,9 +7,8 @@ const Login = () => {
         <Row>
             <div style={{ background: '#fff', minHeight: 280, textAlign: 'center' }}>
                 <Col span={8} offset={8}>
-
-                        <LoginForm />
-
+                    <p>You must log in to view the page</p>
+                    <LoginForm />
                 </Col>
             </div>
         </Row>

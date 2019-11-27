@@ -58,8 +58,10 @@ const Posts = ({posts}) => (
     </PostsList>
 );
 
-const mapStateToProps = ({posts}) => {
-    return {posts}
+const mapStateToProps = (state) => {
+    return {
+        posts: state.feed.posts
+    }
 };
 
 export default connect(mapStateToProps)(Posts);

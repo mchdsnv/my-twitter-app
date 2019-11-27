@@ -7,7 +7,7 @@ export const ADD_POST = 'ADD_POST';
 export const ADD_POST_SUCCESS = 'ADD_POST_SUCCESS';
 export const ADD_POST_FAILURE = 'ADD_POST_FAILURE';
 
-axios.defaults.baseURL = 'http://127.0.0.1:8000/api/posts';
+axios.defaults.baseURL = 'http://127.0.0.1:8000/api/';
 
 export const addPost = (content) => {
     return async dispatch => {
@@ -30,7 +30,7 @@ export const addPost = (content) => {
         }
 
         try {
-            const response = await axios.post(`/`, { content } );
+            const response = await axios.post(`/posts/`, { content } );
             const { data } = response;
             return onSuccess(data);
 
@@ -57,7 +57,7 @@ export const fetchPosts = (page = 1) => {
         }
 
         try {
-            const response = await axios.get(`/?page=${page}` );
+            const response = await axios.get(`/posts/?page=${page}` );
             const { data } = response.data;
             return onSuccess(data);
 
@@ -97,7 +97,7 @@ export const updatePost = (updatedPost, content) => {
         }
 
         try {
-            const response = await axios.put(`/${updatedPost.id}`,{ content }  );
+            const response = await axios.put(`/posts/${updatedPost.id}`,{ content }  );
             const { data } = response;
             console.log(data);
             return onSuccess(data);
@@ -130,7 +130,7 @@ export const deletePost = (deletedPost) => {
         }
 
         try {
-            const response = await axios.delete(`/${deletedPost.id}` );
+            const response = await axios.delete(`/posts/${deletedPost.id}` );
             const { data } = response;
             console.log(response);
             return onSuccess(data);
@@ -153,17 +153,44 @@ export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 
-export const userLogin = () => {
-    return {
-        //
+export const userLogin = ({email, password}) => {
+    return async dispatch => {
+
+        function onSuccess(data) {
+            console.log(data);
+            dispatch({
+                type: LOGIN_SUCCESS,
+            });
+            localStorage.setItem('user', data.access_token);
+        }
+
+        function onError(error) {
+            dispatch({ type: LOGIN_FAILURE, error });
+        }
+
+        try {
+            const response = await axios.post(`/login`,{ email, password }  );
+            const { data } = response;
+            return onSuccess(data);
+        } catch (error) {
+            return onError(error);
+        }
     }
 };
 
-export const LOGOUT = 'USERS_LOGOUT';
+export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
+export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
+export const LOGOUT_FAILURE = 'LOGOUT_FAILURE';
 
 export const userLogout = () => {
-    return {
-        //
+    return async dispatch => {
+        try {
+            const response = await axios.post(`/logout`);
+            dispatch({ type: LOGOUT_SUCCESS });
+            localStorage.clear();
+        } catch (error) {
+            dispatch({ type: LOGOUT_FAILURE, error });
+        }
     }
 };
 

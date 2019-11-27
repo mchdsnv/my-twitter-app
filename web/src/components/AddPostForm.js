@@ -1,8 +1,8 @@
 import React from "react";
-import { Form, Input, Button, Icon } from 'antd';
 import {connect} from 'react-redux';
 import * as actions from '../store/twitter/twitter-actions';
 
+import { Form, Input, Button, Icon } from 'antd';
 const { TextArea } = Input;
 
 const AddPostForm = (props) => {
@@ -55,8 +55,8 @@ const AddPostForm = (props) => {
 
 const mapStateToProps = (state) => {
     return {
-        posts: state.posts.posts,
-        counter: state.counter
+        posts: state.feed.posts,
+        counter: state.feed.counter
     };
 };
 
