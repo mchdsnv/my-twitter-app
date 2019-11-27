@@ -185,7 +185,8 @@ export const LOGOUT_FAILURE = 'LOGOUT_FAILURE';
 export const userLogout = () => {
     return async dispatch => {
         try {
-            const response = await axios.post(`/logout`);
+            const token = localStorage.getItem('user');
+            const response = await axios.post(`/logout`,{ token } );
             dispatch({ type: LOGOUT_SUCCESS });
             localStorage.clear();
         } catch (error) {
