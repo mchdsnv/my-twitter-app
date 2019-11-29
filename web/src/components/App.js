@@ -21,21 +21,21 @@ class App extends React.Component {
 
     render() {
         return (
-            <Router>
-                <Layout>
-                    <GlobalStyle/>
-                    <Content>
-                        <Row>
-                            <Col span={12} offset={6}>
-                                <Header>
-                                    <NavigationMenu/>
-                                </Header>
-                                <Navigation/>
-                            </Col>
-                        </Row>
-                    </Content>
-                </Layout>
-            </Router>
+            <Layout>
+                <GlobalStyle/>
+                <Content>
+                    <Row>
+                        <Col span={12} offset={6}>
+                            <Router>
+                            <Header>
+                                <NavigationMenu/>
+                            </Header>
+                            <Navigation/>
+                            </Router>
+                        </Col>
+                    </Row>
+                </Content>
+            </Layout>
         );
     }
 }

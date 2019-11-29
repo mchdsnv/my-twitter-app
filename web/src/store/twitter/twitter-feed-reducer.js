@@ -22,7 +22,7 @@ const initialState = {
     error: []
 };
 
-const FeedReducer = (state = initialState, action) => {
+const reducer = (state = initialState, action) => {
     switch (action.type) {
         case ADD_POST_SUCCESS:
             return {
@@ -80,4 +80,4 @@ const FeedReducer = (state = initialState, action) => {
     }
 };
 
-export default FeedReducer;
+export default reducer;

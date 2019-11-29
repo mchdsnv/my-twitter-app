@@ -12,13 +12,25 @@ import {
 
 const initialState = {
     authenticated: false,
+    token: '',
     error: []
 };
 
-const AuthReducer = (state = initialState, action) => {
+const reducer = (state = initialState, action) => {
     switch(action.type) {
+        case LOGIN_REQUEST:
+            return {
+
+            };
+
         case LOGIN_SUCCESS:
-            return { ...state, authenticated: true };
+            //localStorage.setItem('user', );
+            console.log(action.payload.access_token);
+            return { ...state,
+                authenticated: true,
+                token: action.payload.access_token,
+                error: []
+            };
 
         case LOGOUT_SUCCESS:
             return { ...state, authenticated: false };
@@ -33,10 +45,9 @@ const AuthReducer = (state = initialState, action) => {
 
         case LOGOUT_REQUEST:
         case SIGNUP_REQUEST:
-        case LOGIN_REQUEST:
         default:
             return state;
     }
 };
 
-export default AuthReducer;
+export default reducer;

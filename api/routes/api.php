@@ -21,3 +21,7 @@ Route::resources(['posts' => PostController::class]);
 Route::post('/register', 'AuthController@register');
 Route::post('/login', 'AuthController@login');
 Route::post('/logout', 'AuthController@logout');
+
+Route::group(['middleware' => ['jwt.verify']], function() {
+//    Route::resources(['posts' => PostController::class]);
+});
