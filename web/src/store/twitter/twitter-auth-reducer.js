@@ -20,7 +20,7 @@ const reducer = (state = initialState, action) => {
     switch(action.type) {
         case LOGIN_REQUEST:
             return {
-
+                //
             };
 
         case LOGIN_SUCCESS:
@@ -29,6 +29,11 @@ const reducer = (state = initialState, action) => {
             return { ...state,
                 authenticated: true,
                 token: action.payload.access_token,
+                error: []
+            };
+
+        case SIGNUP_SUCCESS:
+            return {
                 error: []
             };
 

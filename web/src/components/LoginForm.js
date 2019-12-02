@@ -1,6 +1,6 @@
 import React from "react";
 import {connect} from 'react-redux';
-import * as actions from '../store/twitter/twitter-actions';
+import * as loginActions from '../store/twitter/twitter-actions';
 
 import { Form, Icon, Input, Button } from 'antd';
 import './LoginForm.css';
@@ -13,7 +13,6 @@ const LoginForm = (props) => {
         event.preventDefault();
         props.form.validateFields((error, values) => {
             if (!error) {
-                console.log('Received values of form: ', values);
                 props.userLogin(values);
             }
         });
@@ -61,10 +60,9 @@ const LoginForm = (props) => {
 };
 
 const mapStateToProps = (state) => {
-    console.log(state);
     return {
         //
     };
 };
 
-export default connect(mapStateToProps, actions)(Form.create({ name: 'login-form' })(LoginForm));
+export default connect(mapStateToProps, loginActions)(Form.create({ name: 'login-form' })(LoginForm));

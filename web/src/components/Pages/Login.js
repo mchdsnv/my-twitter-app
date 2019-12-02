@@ -1,6 +1,6 @@
-import {Col, Row } from "antd";
-import LoginForm from "../LoginForm";
-import React from "react";
+import React from 'react';
+import {Col, Row } from 'antd';
+import LoginForm from '../LoginForm';
 
 const Login = () => {
     return (

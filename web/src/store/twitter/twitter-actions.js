@@ -127,7 +127,7 @@ export const userLogin = ({email, password}) =>
         try {
             const response = await axios.post(`/login`,{ email, password }  );
             const { data } = response;
-
+            // localStorage.setItem('user', data.access_token);
             dispatch({
                 type: LOGIN_SUCCESS,
                 payload: {
@@ -143,7 +143,7 @@ export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 export const LOGOUT_FAILURE = 'LOGOUT_FAILURE';
 
-export const userLogout = () =>
+export const userLogout = (accesToken) =>
     async dispatch => {
         try {
             const accesToken = localStorage.getItem('user');
@@ -159,8 +159,12 @@ export const SIGNUP_REQUEST = 'SIGNUP_REQUEST';
 export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
 export const SIGNUP_FAILURE = 'SIGNUP_FAILURE';
 
-export const userSignup = () => {
-    return {
-        //
-    }
-};
+export const userSignup = ({name, email, password}) =>
+    async dispatch => {
+        try {
+            const response = await axios.post(`/signup`,{ name, email, password }  );
+            dispatch({ type: SIGNUP_SUCCESS });
+        } catch(error) {
+            dispatch({ type: SIGNUP_FAILURE, error })
+        }
+    };

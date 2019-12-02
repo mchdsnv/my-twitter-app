@@ -28,7 +28,7 @@ class App extends React.Component {
                         <Col span={12} offset={6}>
                             <Router>
                             <Header>
-                                <NavigationMenu/>
+                                {/*<NavigationMenu/>*/}
                             </Header>
                             <Navigation/>
                             </Router>

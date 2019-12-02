@@ -1,14 +1,18 @@
 import React from "react";
+import {connect} from 'react-redux';
+import * as signUpActions from '../store/twitter/twitter-actions';
 
 import {Form, Input, Tooltip, Icon, Button} from 'antd';
 
 const SignupForm = (props) => {
     const { getFieldDecorator } = props.form;
+
     const handleSubmit = (event) => {
         event.preventDefault();
         props.form.validateFieldsAndScroll((error, values) => {
+            console.log(values);
             if (!error) {
-                console.log('Received values of form: ', values);
+                props.userSignup(values);
             }
         });
     };
@@ -38,16 +42,11 @@ const SignupForm = (props) => {
     const formItemLayout = {
         labelCol: {
             xs: { span: 24 },
-            sm: { span: 6,
-                offset: 2
-            },
+            sm: { span: 6 },
         },
         wrapperCol: {
             xs: { span: 24 },
-            sm: {
-                span: 14,
-                offset: 2
-            },
+            sm: { span: 14},
         },
     };
     const tailFormItemLayout = {
@@ -58,7 +57,7 @@ const SignupForm = (props) => {
             },
             sm: {
                 span: 16,
-                offset: 8,
+                offset: 4,
             },
         },
     };
@@ -75,8 +74,8 @@ const SignupForm = (props) => {
                     </span>
                 }
             >
-                {getFieldDecorator('nickname', {
-                    rules: [{ required: true, message: 'Please input your nickname!', whitespace: true }],
+                {getFieldDecorator('name', {
+                    rules: [{ required: true, message: 'Please input your name!', whitespace: true }],
                 })(<Input />)}
             </Form.Item>
             <Form.Item label="E-mail">
@@ -128,4 +127,11 @@ const SignupForm = (props) => {
     );
 };
 
-export default Form.create({ name: 'signup-form' })(SignupForm);
+const mapStateToProps = (state) => {
+    console.log(state);
+    return {
+        //
+    };
+};
+
+export default connect(mapStateToProps, signUpActions)(Form.create({ name: 'signup-form' })(SignupForm));
