@@ -2,7 +2,7 @@ import React from 'react';
 import {Col, Row } from 'antd';
 import SignupForm from '../SignupForm';
 
-const Signup = () => {
+const Register = () => {
     return (
         <Row>
             <div style={{ background: '#fff', minHeight: 280, textAlign: 'center' }}>
@@ -15,4 +15,4 @@ const Signup = () => {
     );
 };
 
-export default Signup;
+export default Register;

@@ -162,7 +162,7 @@ export const SIGNUP_FAILURE = 'SIGNUP_FAILURE';
 export const userSignup = ({name, email, password}) =>
     async dispatch => {
         try {
-            const response = await axios.post(`/signup`,{ name, email, password }  );
+            const response = await axios.post(`/register`,{ name, email, password }  );
             dispatch({ type: SIGNUP_SUCCESS });
         } catch(error) {
             dispatch({ type: SIGNUP_FAILURE, error })
