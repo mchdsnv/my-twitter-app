@@ -1,5 +1,7 @@
 import React from "react";
 import {connect} from 'react-redux';
+import { Redirect } from 'react-router-dom';
+
 import * as loginActions from '../store/twitter/twitter-actions';
 
 import { Form, Icon, Input, Button } from 'antd';
@@ -7,6 +9,11 @@ import './LoginForm.css';
 
 const LoginForm = (props) => {
     const { getFieldDecorator } = props.form;
+    console.log(props);
+
+    if (props.authenticated) {
+        return <Redirect to='/feed' />
+    }
 
     const handlePressEnter = (event) => ((event.shiftKey) ? false : handleSubmit(event));
     const handleSubmit = (event) => {
@@ -61,7 +68,7 @@ const LoginForm = (props) => {
 
 const mapStateToProps = (state) => {
     return {
-        //
+        authenticated: state.auth.authenticated
     };
 };
 

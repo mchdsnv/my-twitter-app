@@ -127,15 +127,21 @@ export const userLogin = ({email, password}) =>
         try {
             const response = await axios.post(`/login`,{ email, password }  );
             const { data } = response;
-            // localStorage.setItem('user', data.access_token);
             dispatch({
                 type: LOGIN_SUCCESS,
                 payload: {
+                    authenticated: true,
                     token: data.access_token
                 }
             });
         } catch (error) {
-            dispatch({ type: LOGIN_FAILURE, error });
+            dispatch({
+                type: LOGIN_FAILURE,
+                payload: {
+                    authenticated: false,
+                },
+                error
+            });
         }
     };
 
@@ -143,15 +149,25 @@ export const LOGOUT_REQUEST = 'LOGOUT_REQUEST';
 export const LOGOUT_SUCCESS = 'LOGOUT_SUCCESS';
 export const LOGOUT_FAILURE = 'LOGOUT_FAILURE';
 
-export const userLogout = (accesToken) =>
+export const userLogout = () =>
     async dispatch => {
         try {
-            const accesToken = localStorage.getItem('user');
-            const response = await axios.post(`/logout`,{ token: accesToken } );
-            dispatch({ type: LOGOUT_SUCCESS });
+            const response = await axios.post(`/logout`,{ token: localStorage.getItem('user')} );
             localStorage.clear();
+            dispatch({
+                type: LOGOUT_SUCCESS,
+                payload: {
+                    authenticated: false
+                }
+            });
         } catch (error) {
-            dispatch({ type: LOGOUT_FAILURE, error });
+            dispatch({
+                type: LOGOUT_FAILURE,
+                payload: {
+                    authenticated: false,
+                },
+                error
+            });
         }
     };
 

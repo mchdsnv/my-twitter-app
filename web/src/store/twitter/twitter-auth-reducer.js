@@ -24,11 +24,10 @@ const reducer = (state = initialState, action) => {
             };
 
         case LOGIN_SUCCESS:
-            //localStorage.setItem('user', );
-            console.log(action.payload.access_token);
+            localStorage.setItem('user', action.payload.token);
             return { ...state,
-                authenticated: true,
-                token: action.payload.access_token,
+                authenticated: action.payload.authenticated,
+                token: action.payload.token,
                 error: []
             };
 
@@ -38,13 +37,16 @@ const reducer = (state = initialState, action) => {
             };
 
         case LOGOUT_SUCCESS:
-            return { ...state, authenticated: false };
+            return { ...state,
+                authenticated: action.payload.authenticated
+            };
 
         case LOGIN_FAILURE:
         case SIGNUP_FAILURE:
         case LOGOUT_FAILURE:
             return {
                 ...state,
+                authenticated: action.payload.authenticated,
                 error: [...state.error, action.error]
             };
 

@@ -11,12 +11,24 @@ import GlobalStyle from './GlobalStyle'
 import NavigationMenu from './NavigationMenu';
 import Navigation from './Navigation';
 
+import {LOGIN_SUCCESS} from '../store/twitter/twitter-actions';
+
 const { Header, Content } = Layout;
 
 class App extends React.Component {
 
     componentDidMount() {
         this.props.dispatch(fetchPosts());
+        const user = localStorage.getItem('user');
+        if ( user ) {
+            this.props.dispatch({
+                type: LOGIN_SUCCESS,
+                payload: {
+                    authenticated: true,
+                    token: user
+                }
+            });
+        }
     }
 
     render() {
@@ -27,10 +39,10 @@ class App extends React.Component {
                     <Row>
                         <Col span={12} offset={6}>
                             <Router>
-                            <Header>
-                                {/*<NavigationMenu/>*/}
-                            </Header>
-                            <Navigation/>
+                                <Header>
+                                    <NavigationMenu/>
+                                </Header>
+                                <Navigation/>
                             </Router>
                         </Col>
                     </Row>

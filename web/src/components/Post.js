@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import 'antd/dist/antd.css';
 import { Row, Col, Avatar, Button } from 'antd';
 import {connect} from 'react-redux';
-import * as actions from '../store/twitter/twitter-actions';
+import * as postActions from '../store/twitter/twitter-actions';
 
 import moment from "moment";
 
@@ -82,4 +82,4 @@ const Post = ({post, editPost, deletePost}) => (
     </Row>
 );
 
-export default connect(null, actions)(Post);
+export default connect(null, postActions)(Post);
