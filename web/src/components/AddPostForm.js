@@ -14,7 +14,7 @@ const AddPostForm = (props) => {
         event.preventDefault();
         props.form.validateFields((error, values) => {
             if (!error) {
-                props.addPost(values.content);
+                props.addPost(values.content, props.user);
                 props.form.resetFields();
             }
         });
@@ -56,7 +56,8 @@ const AddPostForm = (props) => {
 const mapStateToProps = (state) => {
     return {
         posts: state.feed.posts,
-        counter: state.feed.counter
+        counter: state.feed.counter,
+        user: state.auth.user
     };
 };
 

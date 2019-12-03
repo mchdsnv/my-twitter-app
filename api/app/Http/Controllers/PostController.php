@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Http\Requests\PostRequest;
-
+use Tymon\JWTAuth\Facades\JWTAuth;
 class PostController extends Controller
 {
     /**
@@ -33,7 +33,8 @@ class PostController extends Controller
      */
     public function store(PostRequest $request)
     {
-        return Post::create($request->post());
+        $user = JWTAuth::parseToken()->authenticate();
+        return  Post::create( ['content' => $request['content'] , 'user_id' => $user->id]);
     }
     /**
      * Display the specified resource.

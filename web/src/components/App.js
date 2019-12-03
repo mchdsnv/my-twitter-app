@@ -19,13 +19,13 @@ class App extends React.Component {
 
     componentDidMount() {
         this.props.dispatch(fetchPosts());
-        const user = localStorage.getItem('user');
-        if ( user ) {
+        const token = localStorage.getItem('access_token');
+        if ( token ) {
             this.props.dispatch({
                 type: LOGIN_SUCCESS,
                 payload: {
                     authenticated: true,
-                    token: user
+                    token: token
                 }
             });
         }

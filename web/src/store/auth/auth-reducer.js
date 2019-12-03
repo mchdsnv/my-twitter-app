@@ -8,7 +8,7 @@ import {
     SIGNUP_REQUEST,
     SIGNUP_SUCCESS,
     SIGNUP_FAILURE
-} from "./twitter-actions";
+} from "../twitter/twitter-actions";
 
 const initialState = {
     user: null,
@@ -19,10 +19,14 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
     switch(action.type) {
+        case LOGIN_REQUEST:
+            return {
+                //
+            };
+
         case LOGIN_SUCCESS:
-            localStorage.setItem('access_token', action.payload.token);
+            localStorage.setItem('user', action.payload.token);
             return { ...state,
-                user: action.payload.user,
                 authenticated: action.payload.authenticated,
                 token: action.payload.token,
                 error: []
@@ -47,7 +51,6 @@ const reducer = (state = initialState, action) => {
                 error: [...state.error, action.error]
             };
 
-        case LOGIN_REQUEST:
         case LOGOUT_REQUEST:
         case SIGNUP_REQUEST:
         default:
