@@ -1,21 +1,34 @@
-import React from "react";
+import React, { useState } from 'react';
 import {connect} from 'react-redux';
-import * as actions from '../store/twitter/twitter-actions';
+import * as addPostActions from '../store/twitter/twitter-actions';
 
 import { Form, Input, Button, Icon } from 'antd';
 const { TextArea } = Input;
 
 const AddPostForm = (props) => {
+    const [state, setState] = useState({
+        counter: 0
+    });
     const { getFieldDecorator } = props.form;
 
-    const handleChange = (event) => { props.updCounter( event.target.value.length )};
+    const handleChange = (event) => {
+        setState({
+            counter: event.target.value.length
+        });
+    };
+
     const handlePressEnter = (event) => ((event.shiftKey) ? false : handleSubmit(event));
+
     const handleSubmit = (event) => {
         event.preventDefault();
         props.form.validateFields((error, values) => {
             if (!error) {
                 props.addPost(values.content, props.user);
                 props.form.resetFields();
+
+                setState({
+                    counter: 0
+                });
             }
         });
     };
@@ -26,7 +39,7 @@ const AddPostForm = (props) => {
         >
             <Form.Item>
                 <span>What do you want for share?</span>
-                <p>{props.counter}</p>
+                <p>{state.counter}</p>
                 {getFieldDecorator('content', {
                     rules: [{ required: true, message: 'The message cannot be empty!' }],
                 })(
@@ -56,9 +69,8 @@ const AddPostForm = (props) => {
 const mapStateToProps = (state) => {
     return {
         posts: state.feed.posts,
-        counter: state.feed.counter,
         user: state.auth.user
     };
 };
 
-export default connect(mapStateToProps, actions)(Form.create({ name: 'post-form' })(AddPostForm));
+export default connect(mapStateToProps, addPostActions)(Form.create({ name: 'post-form' })(AddPostForm));

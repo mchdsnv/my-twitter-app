@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import styled from 'styled-components';
 import 'antd/dist/antd.css';
 import { Row, Col, Avatar, Button } from 'antd';
@@ -6,6 +6,7 @@ import {connect} from 'react-redux';
 import * as postActions from '../store/twitter/twitter-actions';
 
 import moment from "moment";
+import EditPostForm from "./EditPostForm";
 
 const FullName = styled.span`
         font-weight: bold;
@@ -31,55 +32,68 @@ const ButtonGroup = styled.p`
     }
 `;
 
-const Post = ({post, editPost, deletePost}) => (
-    <Row>
-        <Col
-            xs={24}
-            sm={20}
-            md={4}
-            lg={4}
-            xl={3}
-        >
-            <Avatar size={64} icon="user" />
-        </Col>
-        <Col
-            xs={24}
-            sm={20}
-            md={20}
-            lg={20}
-            xl={21}
-        >
-            <Row>
-                <input
-                    name="id"
-                    type="hidden"
-                    value={post.id}
-                />
-                <FullName>User</FullName>
-                <UserName>@user</UserName>
-                <Date>{moment( post.created_at, 'yyyy-mm-dd h:mm:ss').fromNow()}</Date>
-                <ButtonGroup>
-                    <Button
-                        onClick={()=>editPost(post)}
-                        icon="edit"
-                        type="primary"
-                        ghost="true"
-                    >
-                    </Button>
-                    <Button
-                        onClick={()=>deletePost(post)}
-                        icon="delete"
-                        type="danger"
-                        ghost="true"
-                    >
-                    </Button>
-                </ButtonGroup>
-            </Row>
-            <Row>
-                <Content>{post.content}</Content>
-            </Row>
-        </Col>
-    </Row>
-);
+const Post = ({post, editPost, deletePost}) => {
+    const [state, setState] = useState({
+        editFormShow: false
+    });
+
+    const showEditForm = () => {
+        setState({
+            editFormShow: !state.editFormShow
+        })
+    };
+
+    return(
+        <Row>
+            <Col
+                xs={24}
+                sm={20}
+                md={4}
+                lg={4}
+                xl={3}
+            >
+                <Avatar size={64} icon="user" />
+            </Col>
+            <Col
+                xs={24}
+                sm={20}
+                md={20}
+                lg={20}
+                xl={21}
+            >
+                <Row>
+                    <input
+                        name="id"
+                        type="hidden"
+                        value={post.id}
+                    />
+                    <FullName>User</FullName>
+                    <UserName>@user</UserName>
+                    <Date>{moment( post.created_at, 'yyyy-mm-dd h:mm:ss').fromNow()}</Date>
+                    <ButtonGroup>
+                        <Button
+                            onClick={showEditForm}
+                            icon="edit"
+                            type="primary"
+                            ghost="true"
+                        >
+                        </Button>
+                        <Button
+                            onClick={()=>deletePost(post)}
+                            icon="delete"
+                            type="danger"
+                            ghost="true"
+                        >
+                        </Button>
+                    </ButtonGroup>
+                </Row>
+                <Row>
+                    <Content>{post.content}</Content>
+                </Row>
+                { state.editFormShow && <Row><Col><EditPostForm post={post} showEditForm ={showEditForm} /></Col></Row> }
+            </Col>
+        </Row>
+    );
+};
 
 export default connect(null, postActions)(Post);

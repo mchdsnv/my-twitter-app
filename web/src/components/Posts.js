@@ -51,7 +51,7 @@ const Posts = ({posts}) => (
         <PostsTitle>Tweets</PostsTitle>
         { posts.map((post) => {
             return(
-                post.editing ? <PostItem key={post.id}><Post post={post} /><EditPostForm post={post} key={post.id} /></PostItem> : <PostItem key={post.id}><Post post={post} /></PostItem>
+                 <PostItem key={post.id}><Post post={post} /></PostItem>
             );
          })
         }

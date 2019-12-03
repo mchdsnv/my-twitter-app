@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 
 import { Form, Input, Button, Icon } from 'antd';
 import {connect} from 'react-redux';
@@ -7,14 +7,27 @@ import * as actions from '../store/twitter/twitter-actions';
 const { TextArea } = Input;
 
 const EditPostForm = (props) => {
+    const [state, setState] = useState({
+        counter: 0
+    });
     const { getFieldDecorator } = props.form;
-    const handleChange = (event) => { props.updCounter( event.target.value.length )};
+
+    const handleChange = (event) => {
+        setState({
+            counter: event.target.value.length
+        });
+    };
+
     const handlePressEnter = (event) => ((event.shiftKey) ? false : handleSubmit(event));
     const handleSubmit = (event) => {
         event.preventDefault();
         props.form.validateFields((error, values) => {
             if (!error) {
                 props.updatePost(props.post, values.content);
+
+                setState({
+                    counter: 0
+                });
             }
         });
     };
@@ -24,7 +37,7 @@ const EditPostForm = (props) => {
             onSubmit = {handleSubmit}
         >
             <Form.Item>
-                <p>{props.counter}</p>
+                <p>{state.counter}</p>
                 {getFieldDecorator('content', {
                     rules: [{ required: true,
                         message: 'The message cannot be empty!'

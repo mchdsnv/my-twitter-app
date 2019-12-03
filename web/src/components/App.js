@@ -13,12 +13,11 @@ import Navigation from './Navigation';
 
 import {LOGIN_SUCCESS} from '../store/twitter/twitter-actions';
 
-const { Header, Content } = Layout;
+const {Header, Content} = Layout;
 
 class App extends React.Component {
 
     componentDidMount() {
-        this.props.dispatch(fetchPosts());
         const token = localStorage.getItem('access_token');
         if ( token ) {
             this.props.dispatch({

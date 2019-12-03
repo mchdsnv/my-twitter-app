@@ -1,19 +1,15 @@
 import axios from 'axios';
-
-export const  EDIT_POST = 'EDIT_POST';
-export const  UPDATE_COUNTER = 'UPDATE_COUNTER';
+axios.defaults.baseURL = 'http://127.0.0.1:8000/api/';
+axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
 
 export const ADD_POST = 'ADD_POST';
 export const ADD_POST_SUCCESS = 'ADD_POST_SUCCESS';
 export const ADD_POST_FAILURE = 'ADD_POST_FAILURE';
 
-axios.defaults.baseURL = 'http://127.0.0.1:8000/api/';
-axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
-
 export const addPost = (content) => (
     async dispatch => {
         try {
-            const response = await axios.post(`/posts/`, { content } );
+            const response = await axios.post(`/posts`, { content } );
             const { data } = response;
             dispatch({
                 type: ADD_POST_SUCCESS,
@@ -48,13 +44,6 @@ export const fetchPosts = (page = 1) => (
         }
     }
 );
-
-export const editPost = (updatedPost) => ({
-    type: EDIT_POST,
-    payload: {
-        post: updatedPost
-    }
-});
 
 export const UPDATE_POST = 'UPDATE_POST ';
 export const UPDATE_POST_SUCCESS = 'UPDATE_POST_SUCCESS';
@@ -103,20 +92,14 @@ export const deletePost = (deletedPost) => (
     }
 );
 
-export const updCounter = (counter) => ({
-    type: UPDATE_COUNTER,
-    payload: {
-        counter: counter
-    }
-});
-
 export const LOGIN_REQUEST = 'LOGIN_REQUEST';
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAILURE = 'LOGIN_FAILURE';
 
-export const userLogin = ({email, password}) => (
+export const userLogin = (credentials) => (
     async dispatch => {
         try {
+            const {email, password} = credentials;
             const response = await axios.post(`auth/login`,{ email, password }  );
             const { data } = response;
             dispatch({
@@ -146,7 +129,8 @@ export const userLogout = () => (
     async dispatch => {
         try {
             const response = await axios.post(`auth/logout`,{ token: localStorage.getItem('access_token')} );
-            localStorage.clear();
+            localStorage.removeItem('access_token');
+            localStorage.removeItem('user');
             dispatch({
                 type: LOGOUT_SUCCESS,
                 payload: {
@@ -176,6 +160,32 @@ export const userSignup = ({name, email, password}) => (
             dispatch({ type: SIGNUP_SUCCESS });
         } catch(error) {
             dispatch({ type: SIGNUP_FAILURE, error })
+        }
+    }
+);
+
+export const GET_USER = 'GET_USER';
+export const GET_USER_SUCCESS = 'GET_USER_SUCCESS';
+export const GET_USER_FAILURE = 'GET_USER_FAILURE';
+
+export const getUser = () => (
+    async dispatch => {
+        try {
+            const response = await axios.get(`/user`);
+            const { data } = response;
+            localStorage.setItem('user', data.id);
+            dispatch({
+                type: GET_USER_SUCCESS,
+                payload : {user: data.id}
+            });
+        } catch (error) {
+            dispatch({
+                type: GET_USER_FAILURE,
+                payload: {
+                    authenticated: false,
+                },
+                error
+            });
         }
     }
 );

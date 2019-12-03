@@ -10,9 +10,7 @@ import {
     UPDATE_POST_FAILURE,
     DELETE_POST,
     DELETE_POST_SUCCESS,
-    DELETE_POST_FAILURE,
-    UPDATE_COUNTER,
-    EDIT_POST
+    DELETE_POST_FAILURE
 } from "./twitter-actions";
 
 const initialState = {
@@ -37,12 +35,6 @@ const reducer = (state = initialState, action) => {
                 posts: action.payload.posts
             };
 
-        case EDIT_POST:
-            return {
-                ...state,
-                posts: state.posts.map(post => post.id === action.payload.post.id ? { ...post, editing: !post.editing } : post)
-            };
-
         case UPDATE_POST_SUCCESS:
             return {
                 ...state,
@@ -54,12 +46,6 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 posts: state.posts.filter(post => post.id !== action.payload.post.id)
-            };
-
-        case UPDATE_COUNTER:
-            return {
-                ...state,
-                counter: action.payload.counter
             };
 
         case ADD_POST_FAILURE:

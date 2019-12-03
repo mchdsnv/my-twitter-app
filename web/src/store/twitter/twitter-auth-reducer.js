@@ -7,7 +7,7 @@ import {
     LOGOUT_SUCCESS,
     SIGNUP_REQUEST,
     SIGNUP_SUCCESS,
-    SIGNUP_FAILURE
+    SIGNUP_FAILURE, GET_USER_SUCCESS, GET_USER_FAILURE
 } from "./twitter-actions";
 
 const initialState = {
@@ -33,11 +33,18 @@ const reducer = (state = initialState, action) => {
                 error: []
             };
 
-        case LOGOUT_SUCCESS:
+        case GET_USER_SUCCESS:
+            console.log(action.payload);
             return { ...state,
-                authenticated: action.payload.authenticated
+                user: action.payload.user.id
             };
 
+        case LOGOUT_SUCCESS:
+            return { ...state,
+                authenticated: action.payload.authenticated,
+            };
+
+        case GET_USER_FAILURE:
         case LOGIN_FAILURE:
         case SIGNUP_FAILURE:
         case LOGOUT_FAILURE:

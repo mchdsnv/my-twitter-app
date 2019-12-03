@@ -20,7 +20,7 @@ const store = createStore(
         feed : FeedReducer,
         auth: AuthReducer
     }),
-    composeEnhancer(applyMiddleware(thunk)),
+    composeEnhancer(applyMiddleware(thunk, logger)),
 );
 
 // sagaMiddleware.run(authSaga);

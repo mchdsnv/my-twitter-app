@@ -9,7 +9,6 @@ import './LoginForm.css';
 
 const LoginForm = (props) => {
     const { getFieldDecorator } = props.form;
-    console.log(props);
 
     if (props.authenticated) {
         return <Redirect to='/feed' />
