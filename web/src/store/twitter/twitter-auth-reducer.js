@@ -41,7 +41,6 @@ const reducer = (state = initialState, action) => {
                 authenticated: true,
             };
 
-
         case GET_USER_SUCCESS:
             return { ...state,
                 loading: false,

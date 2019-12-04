@@ -12,8 +12,10 @@ import {
 
 export const ADD_POST_SUCCESS = 'ADD_POST_SUCCESS';
 export const ADD_POST_FAILURE = 'ADD_POST_FAILURE';
-function* addPost(content) {
+function* addPost(action) {
+    const {content} = action.payload;
     try {
+        console.log(content);
         const {data} = yield call(axios.post, `posts`, {content});
         yield put({
             type: ADD_POST_SUCCESS,
@@ -21,8 +23,7 @@ function* addPost(content) {
                 post: {
                     id: data.id,
                     content: data.content,
-                    created_at: data.created_at,
-                    user_id: 1
+                    created_at: data.created_at
                 }
             }
         });
@@ -32,10 +33,6 @@ function* addPost(content) {
             error
         });
     }
-}
-
-function* watchAddPost() {
-    yield takeEvery(ADD_POST, addPost)
 }
 
 export const FETCH_POSTS_SUCCESS = 'FETCH_POSTS_SUCCESS';
@@ -55,11 +52,6 @@ function* fetchPosts(action) {
     }
 }
 
-function* watchFetchPosts() {
-    yield takeEvery(FETCH_POSTS, fetchPosts)
-}
-
-
 export const DELETE_POST_SUCCESS = 'DELETE_POST_SUCCESS';
 export const DELETE_POST_FAILURE = 'DELETE_POST_FAILURE';
 function* deletePost(action){
@@ -68,7 +60,9 @@ function* deletePost(action){
         yield call( axios.delete,`posts/${deletedPost.id}`);
         yield put({
             type: DELETE_POST_SUCCESS,
-            payload: deletedPost
+            payload: {
+                post: deletedPost
+            }
         });
     } catch (error) {
         yield put({
@@ -78,16 +72,12 @@ function* deletePost(action){
     }
 }
 
-function* watchDeletePost() {
-    yield takeEvery(DELETE_POST, deletePost)
-}
-
 export const UPDATE_POST_SUCCESS = 'UPDATE_POST_SUCCESS';
 export const UPDATE_POST_FAILURE = 'UPDATE_POST_FAILURE';
 function* updatePost(action) {
-    const {post, content} = action.payload;
+    const {updatedPost, content} = action.payload;
     try {
-        const response = yield call(axios.put,`posts/${post.id}`, {content});
+        const response = yield call(axios.put,`posts/${updatedPost.id}`, {content});
         yield put({
             type: UPDATE_POST_SUCCESS,
             payload: {post: response.data, content}
@@ -98,10 +88,6 @@ function* updatePost(action) {
             error
         });
     }
-}
-
-function* watchUpdatePost() {
-    yield takeEvery(UPDATE_POST, updatePost)
 }
 
 export const USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS';
@@ -131,27 +117,18 @@ function* userLogin(action){
     }
 }
 
-function* watchUserLogin() {
-    yield takeEvery(USER_LOGIN, userLogin)
-}
-
 export const USER_SIGNUP_SUCCESS = 'USER_SIGNUP_SUCCESS';
 export const USER_SIGNUP_FAILURE = 'USER_SIGNUP_FAILURE';
 function* userSignup(action) {
-    const {userData} = action.payload;
+    const {email, password, name} = action.payload;
     try {
-        const response = yield call( axios.post,`auth/signup`,
-            {
-                email: userData.email,
-                password: userData.password,
-                name: userData.name
-            }
+        const response = yield call( axios.post,`auth/signup`, {email, password, name}
         );
         localStorage.setItem('access_token', response.data.access_token);
         yield put({
             type: USER_SIGNUP_SUCCESS,
             payload: {
-                username: userData.name,
+                name,
                 access_token: response.data.access_token}
         });
     } catch (error) {
@@ -160,10 +137,6 @@ function* userSignup(action) {
             error
         });
     }
-}
-
-function* watchUserRegistration() {
-    yield takeEvery(USER_SIGNUP, userSignup);
 }
 
 export const GET_USER_SUCCESS = 'GET_USER_SUCCESS';
@@ -187,18 +160,14 @@ function* getUser() {
     }
 }
 
-function* watchUserData() {
-    yield takeEvery(GET_USER, getUser);
-}
-
 export default function* rootSaga() {
     yield all([
-        watchFetchPosts(),
-        watchAddPost(),
-        watchDeletePost(),
-        watchUpdatePost(),
-        watchUserLogin(),
-        watchUserRegistration(),
-        watchUserData()
+        yield takeEvery(ADD_POST, addPost),
+        yield takeEvery(FETCH_POSTS, fetchPosts),
+        yield takeEvery(DELETE_POST, deletePost),
+        yield takeEvery(UPDATE_POST, updatePost),
+        yield takeEvery(USER_LOGIN, userLogin),
+        yield takeEvery(USER_SIGNUP, userSignup),
+        yield takeEvery(GET_USER, getUser)
     ])
 }

@@ -58,7 +58,6 @@ const reducer = (state = initialState, action) => {
             };
 
         case DELETE_POST_SUCCESS:
-            console.log(action.payload);
             return {
                 ...state,
                 posts: state.posts.filter(post => post.id !== action.payload.post.id)
