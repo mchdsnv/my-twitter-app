@@ -5,10 +5,17 @@ import logger from 'redux-logger';
 import rootSaga, {USER_LOGIN_SUCCESS, USER_SIGNUP_SUCCESS} from "./twitter/sagas";
 import {USER_LOGIN, USER_SIGNUP} from "./twitter/twitter-actions";
 
+import {
+    createRequestInstance,
+    watchRequests,
+    networkReducer,
+} from 'redux-saga-requests';
+import { createDriver } from 'redux-saga-requests-axios';
+
 import FeedReducer from "./twitter/twitter-feed-reducer";
 import AuthReducer from "./twitter/twitter-auth-reducer";
 
-const setAxiosDefaults = (store) => (next) => (action) => {
+const axiosInstance = (store) => (next) => (action) => {
     switch (action.type) {
         case USER_LOGIN:
         case USER_SIGNUP:
@@ -33,11 +40,8 @@ const store = createStore(
         feed : FeedReducer,
         auth: AuthReducer
     }),
-    composeEnhancer(applyMiddleware(setAxiosDefaults, logger, sagaMiddleware))
+    composeEnhancer(applyMiddleware(axiosInstance, logger, sagaMiddleware))
 );
 sagaMiddleware.run(rootSaga);
-
-// sagaMiddleware.run(authSaga);
-// sagaMiddleware.run(feedSaga);
 
 export default store;

@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { call, put, all, takeEvery } from 'redux-saga/effects';
+import {takeEvery, call, put, all } from 'redux-saga/effects';
+
 import {
     ADD_POST,
     DELETE_POST,
