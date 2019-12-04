@@ -6,12 +6,11 @@ import 'antd/dist/antd.css';
 import {Col, Layout, Row} from 'antd';
 
 import './App.css';
-import {fetchPosts} from '../store/twitter/twitter-actions';
 import GlobalStyle from './GlobalStyle'
 import NavigationMenu from './NavigationMenu';
 import Navigation from './Navigation';
 
-import {LOGIN_SUCCESS} from '../store/twitter/twitter-actions';
+import {USER_LOGIN_SUCCESS} from '../store/twitter/sagas';
 
 const {Header, Content} = Layout;
 
@@ -21,7 +20,7 @@ class App extends React.Component {
         const token = localStorage.getItem('access_token');
         if ( token ) {
             this.props.dispatch({
-                type: LOGIN_SUCCESS,
+                type: USER_LOGIN_SUCCESS,
                 payload: {
                     authenticated: true,
                     token: token

@@ -5,12 +5,14 @@ import * as actions from '../../store/twitter/twitter-actions';
 import {connect} from 'react-redux';
 
 class Feed extends React.Component {
+
     componentDidMount() {
         this.props.fetchPosts();
-        const user = localStorage.getItem('user');
-        if (!user) {
-            this.props.getUser();
-        }
+        // const user = localStorage.getItem('user');
+        // const token = localStorage.getItem('token');
+        // if (!user && token) {
+        //     this.props.getUser();
+        // }
     }
 
     render () {
