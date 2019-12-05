@@ -65,10 +65,4 @@ const LoginForm = (props) => {
     );
 };
 
-const mapStateToProps = (state) => {
-    return {
-        authenticated: state.auth.authenticated
-    };
-};
-
-export default connect(mapStateToProps, loginActions)(Form.create({ name: 'login-form' })(LoginForm));
+export default connect(()=>(state)=>({authenticated: state.auth.authenticated}), loginActions)(Form.create({ name: 'login-form' })(LoginForm));

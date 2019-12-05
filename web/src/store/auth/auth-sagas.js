@@ -1,19 +1,71 @@
 import { createRequestInstance, watchRequests, requestsReducer } from 'redux-saga-requests';
 import { createDriver } from 'redux-saga-requests-axios';
 import axios from "axios";
-import { LOGIN_REQUEST, LOGOUT_REQUEST, SIGNUP_REQUEST } from "./twitter-actions";
+import {USER_LOGIN, USER_LOGOUT, USER_SIGNUP, GET_USER} from "../twitter/twitter-actions";
+import {call, put} from "redux-saga/effects";
+
+
+export const USER_LOGIN_SUCCESS = 'USER_LOGIN_SUCCESS';
+export const USER_LOGIN_FAILURE = 'USER_LOGIN_FAILURE';
+function* userLogin(action){
+    yield put({
+        type: SET_USER,
+        payload: action.data.user,
+    });
+
+    yield put({
+        type: SET_TOKEN,
+        payload: action.data.token,
+    });
+
+
+    const {credentials} = action.payload;
+    try {
+        const response = yield call(axios.post,`auth/login`,
+            {
+                email: credentials.email,
+                password: credentials.password
+            }
+        );
+        // localStorage.setItem('access_token', response.data.access_token);
+        yield put({
+            type: USER_LOGIN_SUCCESS,
+            payload: {
+                username: credentials.login,
+                access_token: response.data.access_token
+            }
+        });
+    } catch (error) {
+        yield put({
+            type: USER_LOGIN_FAILURE,
+            error
+        });
+    }
+}
+
+function* registrationRequestSuccess(action) {
+    yield put({
+        type: SET_USER,
+        payload: action.data.user,
+    });
+
+    yield put({
+        type: SET_TOKEN,
+        payload: action.data.token,
+    });
+}
 
 const userLogin = ({ email, password }) => ({
-    type: LOGIN_REQUEST,
+    type: USER_LOGIN,
     request: {
         url: '/login',
-        method: 'post',
+        method: 'POST',
         data: { email, password }
     }
 });
 
 const userLogout = ({token}) => ({
-    type: LOGOUT_REQUEST,
+    type: USER_LOGOUT,
     request: {
         url: '/logout',
         method: 'post',
@@ -22,7 +74,16 @@ const userLogout = ({token}) => ({
 });
 
 const signUp = ({name, email, password}) => ({
-    type: SIGNUP_REQUEST,
+    type: USER_SIGNUP,
+    request: {
+        url: '/signup',
+        method: 'post',
+        data: { name, email, password }
+    }
+});
+
+const getUser = () => ({
+    type: USER_SIGNUP,
     request: {
         url: '/signup',
         method: 'post',

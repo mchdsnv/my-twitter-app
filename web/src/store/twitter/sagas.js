@@ -16,7 +16,6 @@ export const ADD_POST_FAILURE = 'ADD_POST_FAILURE';
 function* addPost(action) {
     const {content} = action.payload;
     try {
-        console.log(content);
         const {data} = yield call(axios.post, `posts`, {content});
         yield put({
             type: ADD_POST_SUCCESS,
@@ -125,7 +124,7 @@ function* userSignup(action) {
     try {
         const response = yield call( axios.post,`auth/signup`, {email, password, name}
         );
-        localStorage.setItem('access_token', response.data.access_token);
+        // localStorage.setItem('access_token', response.data.access_token);
         yield put({
             type: USER_SIGNUP_SUCCESS,
             payload: {

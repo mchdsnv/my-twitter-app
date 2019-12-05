@@ -32,7 +32,7 @@ const ButtonGroup = styled.p`
     }
 `;
 
-const Post = ({post, editPost, deletePost}) => {
+const Post = ({post, deletePost}) => {
     const [state, setState] = useState({
         editFormShow: false
     });

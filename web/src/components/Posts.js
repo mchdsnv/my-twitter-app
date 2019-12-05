@@ -4,7 +4,6 @@ import {connect} from "react-redux"
 import styled from "styled-components";
 
 import Post from "./Post";
-import EditPostForm from "./EditPostForm";
 
 const PostsList = styled.ul`
     display: -ms-flexbox;
@@ -58,10 +57,4 @@ const Posts = ({posts}) => (
     </PostsList>
 );
 
-const mapStateToProps = (state) => {
-    return {
-        posts: state.feed.posts
-    }
-};
-
-export default connect(mapStateToProps)(Posts);
+export default connect(()=>(state)=>({posts: state.feed.posts}))(Posts);

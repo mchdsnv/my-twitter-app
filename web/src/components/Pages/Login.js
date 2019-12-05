@@ -1,18 +1,20 @@
 import React from 'react';
-import {Col, Row } from 'antd';
+import {connect} from 'react-redux';
+import {Col, Row, Icon } from 'antd';
 import LoginForm from '../LoginForm';
+import * as loginActions from '../../store/twitter/twitter-actions';
 
-const Login = () => {
+const Login = ({loading}) => {
     return (
         <Row>
             <div style={{ background: '#fff', minHeight: 280, textAlign: 'center' }}>
                 <Col span={8} offset={8}>
                     <p>You must log in to view the page</p>
-                    <LoginForm />
+                    { loading ? <Icon type="loading" style={{fontSize: '45px'}}/> : <LoginForm /> }
                 </Col>
             </div>
         </Row>
     );
 };
 
-export default Login;
+export default connect(() => (state) => ({loading: state.auth.loading}), loginActions)(Login);
