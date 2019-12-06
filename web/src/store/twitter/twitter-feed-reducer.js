@@ -17,7 +17,7 @@ import {
 } from './sagas';
 
 const initialState = {
-    loading: false,
+    pending: false,
     posts: [],
     error: []
 };
@@ -30,13 +30,13 @@ const reducer = (state = initialState, action) => {
         case FETCH_POSTS:
             return {
                 ...state,
-                loading: true
+                pending: true
             };
 
         case ADD_POST_SUCCESS:
             return {
                 ...state,
-                loading: false,
+                pending: false,
                 posts: [...state.posts, action.payload.post],
                 error: []
             };
@@ -44,7 +44,7 @@ const reducer = (state = initialState, action) => {
         case FETCH_POSTS_SUCCESS:
             return {
                 ...state,
-                loading: false,
+                pending: false,
                 posts: action.payload.data,
                 error: []
             };
@@ -52,7 +52,7 @@ const reducer = (state = initialState, action) => {
         case UPDATE_POST_SUCCESS:
             return {
                 ...state,
-                loading: false,
+                pending: false,
                 posts: state.posts.map(post => post.id === action.payload.post.id ? {...post, content: action.payload.content, editing: !post.editing} : post),
                 error: []
             };

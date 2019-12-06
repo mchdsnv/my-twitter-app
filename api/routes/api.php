@@ -17,7 +17,6 @@ use Illuminate\Http\Request;
 //    return $request->user();
 //});
 Route::resources(['posts' => PostController::class]);
-Route::get('user', 'AuthController@getAuthenticatedUser');
 Route::group(['middleware' => ['jwt.verify']], function() {
 //    Route::resources(['posts' => PostController::class]);
 //    Route::get('user', 'AuthController@getAuthenticatedUser');
@@ -26,3 +25,4 @@ Route::group(['middleware' => ['jwt.verify']], function() {
 Route::post('auth/signup', 'AuthController@register');
 Route::post('auth/login', 'AuthController@login');
 Route::post('auth/logout', 'AuthController@logout');
+Route::get('user', 'AuthController@getAuthenticatedUser');

@@ -1,20 +1,30 @@
-import {createStore, applyMiddleware, combineReducers, compose} from "redux";
+import { createStore, applyMiddleware, combineReducers, compose } from 'redux';
 import createSagaMiddleware from 'redux-saga';
-import axios from "axios";
 import logger from 'redux-logger';
-import rootSaga, {USER_LOGIN_SUCCESS, USER_SIGNUP_SUCCESS} from "./twitter/sagas";
-
 import thunk from 'redux-thunk';
+import axios from 'axios';
 
-import FeedReducer from "./twitter/twitter-feed-reducer";
-import AuthReducer from "./twitter/twitter-auth-reducer";
-axios.defaults.baseURL = 'http://127.0.0.1:8000/api/';
+import authReducer from './auth/auth-reducer';
+import feedReducer from './feed/feed-reducer';
 
-const axiosInstance = (store) => (next) => (action) => {
+import authSaga from './auth/auth-sagas';
+import feedSaga from './feed/feed-sagas';
+
+import authMiddleware from './auth/auth-middleware';
+
+import {USER_LOGIN, USER_LOGOUT} from './auth/auth-constants';
+
+const sagaMiddleware = createSagaMiddleware();
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
+
+const setAxiosDefaults = (store) => (next) => (action) => {
+    axios.defaults.baseURL = 'http://127.0.0.1:8000/api/';
     switch (action.type) {
-        case USER_LOGIN_SUCCESS:
-        case USER_SIGNUP_SUCCESS:
-            axios.defaults.headers.common['Authorization'] = `Bearer ${localStorage.getItem('access_token')}`;
+        case USER_LOGIN:
+            axios.defaults.headers.common['Authorization'] = `Bearer ${action.payload.access_token}`;
+            break;
+        case USER_LOGOUT:
+            delete axios.defaults.headers.common['Authorization'];
             break;
         default:
             break;
@@ -22,16 +32,12 @@ const axiosInstance = (store) => (next) => (action) => {
     return next(action)
 };
 
-const sagaMiddleware = createSagaMiddleware();
-const composeEnhancer = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
-
-const store = createStore(
+export default createStore(
     combineReducers({
-        feed : FeedReducer,
-        auth: AuthReducer
+        auth: authReducer,
+        feed : feedReducer,
     }),
-    composeEnhancer(applyMiddleware(axiosInstance, thunk, logger, sagaMiddleware))
+    composeEnhancers(applyMiddleware(sagaMiddleware, authMiddleware, thunk, logger, setAxiosDefaults)),
 );
-sagaMiddleware.run(rootSaga);
 
-export default store;
+sagaMiddleware.run(authSaga, feedSaga);

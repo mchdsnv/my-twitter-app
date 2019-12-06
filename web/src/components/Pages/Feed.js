@@ -1,7 +1,7 @@
 import React from 'react';
 import Posts from '../Posts';
 import AddPostForm from '../AddPostForm';
-import * as actions from '../../store/twitter/twitter-actions';
+import * as actions from '../../store/feed/feed-actions';
 import {connect} from 'react-redux';
 
 class Feed extends React.Component {

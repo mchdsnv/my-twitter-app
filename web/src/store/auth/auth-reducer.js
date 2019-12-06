@@ -1,58 +1,60 @@
-import {
-    LOGIN_REQUEST,
-    LOGIN_SUCCESS,
-    LOGIN_FAILURE,
-    LOGOUT_REQUEST,
-    LOGOUT_FAILURE,
-    LOGOUT_SUCCESS,
-    SIGNUP_REQUEST,
-    SIGNUP_SUCCESS,
-    SIGNUP_FAILURE
-} from "../twitter/twitter-actions";
+import { success, error } from 'redux-saga-requests';
+import {USER_LOGIN, USER_LOGOUT, USER_SIGNUP, FETCH_USER} from './auth-constants';
 
 const initialState = {
     user: null,
     authenticated: false,
     token: '',
-    error: []
+    error: [],
+    pending: false
 };
 
 const reducer = (state = initialState, action) => {
     switch(action.type) {
-        case LOGIN_REQUEST:
-            return {
-                //
-            };
-
-        case LOGIN_SUCCESS:
-            localStorage.setItem('user', action.payload.token);
-            return { ...state,
-                authenticated: action.payload.authenticated,
-                token: action.payload.token,
-                error: []
-            };
-
-        case SIGNUP_SUCCESS:
-            return {
-                error: []
-            };
-
-        case LOGOUT_SUCCESS:
-            return { ...state,
-                authenticated: action.payload.authenticated
-            };
-
-        case LOGIN_FAILURE:
-        case SIGNUP_FAILURE:
-        case LOGOUT_FAILURE:
+        case USER_LOGIN:
+        case FETCH_USER:
+        case USER_SIGNUP:
             return {
                 ...state,
-                authenticated: action.payload.authenticated,
+                pending: true
+            };
+
+        case success(USER_LOGIN):
+        case success(USER_SIGNUP):
+            return {
+                ...state,
+                pending: false,
+                token: action.payload.token,
+                authenticated: true,
+            };
+
+        case success(FETCH_USER):
+            return { ...state,
+                pending: false,
+                user: action.payload.user.id,
+                error: []
+            };
+
+        case success(USER_LOGOUT):
+            return { ...state,
+                user: null,
+                authenticated: false,
+                token: null,
+                error: []
+            };
+
+        case error(FETCH_USER):
+        case error(USER_LOGIN):
+        case error(USER_SIGNUP):
+            return {
+                ...state,
+                user: null,
+                token: null,
+                pending: false,
+                authenticated: false,
                 error: [...state.error, action.error]
             };
 
-        case LOGOUT_REQUEST:
-        case SIGNUP_REQUEST:
         default:
             return state;
     }

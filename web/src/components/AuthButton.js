@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Link, withRouter} from 'react-router-dom'
-import * as actions from '../store/twitter/twitter-actions';
+import * as actions from '../store/auth/auth-actions';
 import {Button} from "antd";
 
 const AuthButton = withRouter(({ authenticated, userLogout }) => (

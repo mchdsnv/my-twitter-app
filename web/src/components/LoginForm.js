@@ -2,7 +2,7 @@ import React from "react";
 import {connect} from 'react-redux';
 import { Redirect } from 'react-router-dom';
 
-import * as loginActions from '../store/twitter/twitter-actions';
+import * as loginActions from '../store/auth/auth-actions';
 
 import { Form, Icon, Input, Button } from 'antd';
 import './LoginForm.css';

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import {connect} from 'react-redux';
-import * as addPostActions from '../store/twitter/twitter-actions';
+import * as addPostActions from '../store/feed/feed-actions';
 
 import { Form, Input, Button, Icon } from 'antd';
 const { TextArea } = Input;

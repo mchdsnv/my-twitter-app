@@ -19,7 +19,7 @@ const initialState = {
     authenticated: false,
     token: '',
     error: [],
-    loading: false
+    pending: false
 };
 
 const reducer = (state = initialState, action) => {
@@ -29,21 +29,21 @@ const reducer = (state = initialState, action) => {
         case USER_SIGNUP:
             return {
                 ...state,
-                loading: true
+                pending: true
             };
 
         case USER_SIGNUP_SUCCESS:
         case USER_LOGIN_SUCCESS:
             return {
                 ...state,
-                loading: false,
+                pending: false,
                 token: action.payload.token,
                 authenticated: true,
             };
 
         case GET_USER_SUCCESS:
             return { ...state,
-                loading: false,
+                pending: false,
                 user: action.payload.user.id,
                 error: []
             };
@@ -63,7 +63,7 @@ const reducer = (state = initialState, action) => {
                 ...state,
                 user: null,
                 token: null,
-                loading: false,
+                pending: false,
                 authenticated: false,
                 error: [...state.error, action.error]
             };

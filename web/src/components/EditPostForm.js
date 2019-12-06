@@ -2,7 +2,7 @@ import React, {useState} from "react";
 
 import { Form, Input, Button, Icon } from 'antd';
 import {connect} from 'react-redux';
-import * as actions from '../store/twitter/twitter-actions';
+import * as actions from '../store/feed/feed-actions';
 
 const { TextArea } = Input;
 
