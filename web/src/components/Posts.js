@@ -47,7 +47,7 @@ const PostItem = styled.li`
 
 const Posts = ({posts}) => (
     <PostsList>
-        <PostsTitle>Tweets</PostsTitle>
+        <PostsTitle>Posts</PostsTitle>
         { posts.map((post) => {
             return(
                  <PostItem key={post.id}><Post post={post} /></PostItem>
@@ -56,5 +56,6 @@ const Posts = ({posts}) => (
         }
     </PostsList>
 );
+
 
 export default connect(()=>(state)=>({posts: state.feed.posts}))(Posts);

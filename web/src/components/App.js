@@ -10,23 +10,14 @@ import GlobalStyle from './GlobalStyle'
 import NavigationMenu from './NavigationMenu';
 import Navigation from './Navigation';
 
-import {USER_LOGIN_SUCCESS} from '../store/twitter/sagas';
+import * as appActions from '../store/auth/auth-actions';
 
 const {Header, Content} = Layout;
 
 class App extends React.Component {
 
     componentDidMount() {
-        const token = localStorage.getItem('access_token');
-        if ( token ) {
-            this.props.dispatch({
-                type: USER_LOGIN_SUCCESS,
-                payload: {
-                    authenticated: true,
-                    token: token
-                }
-            });
-        }
+        this.props.appInit();
     }
 
     render() {
@@ -50,4 +41,4 @@ class App extends React.Component {
     }
 }
 
-export default connect()(App);
+export default connect(null, appActions)(App);

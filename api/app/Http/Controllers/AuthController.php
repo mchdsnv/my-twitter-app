@@ -12,7 +12,7 @@ class AuthController extends Controller
     public function register(Request $request)
     {
         $user = User::create([
-            'name' => $request->name,
+            'name'     => $request->name,
             'email'    => $request->email,
             'password' => $request->password,
         ]);
@@ -49,14 +49,17 @@ class AuthController extends Controller
         ]);
     }
 
-    public function getAuthenticatedUser()
+    public function getAuthenticatedUser(Request $request)
     {
-        $user = JWTAuth::parseToken()->authenticate();
+        $user = $request->user();
         if (! $user ) {
-            return response()->json(['error' => 'User not found'], 404);
+            return response()->json(['error' => 'User not found'], 401);
         }
-
         return response()->json($user, 200);
     }
 
+    public function refresh()
+    {
+        return $this->respondWithToken(auth()->refresh());
+    }
 }

@@ -1,16 +1,22 @@
 import { success, error } from 'redux-saga-requests';
-import {USER_LOGIN, USER_LOGOUT, USER_SIGNUP, FETCH_USER} from './auth-constants';
+import {USER_LOGIN, USER_LOGOUT, USER_SIGNUP, FETCH_USER, APP_INIT} from './auth-constants';
 
 const initialState = {
     user: null,
     authenticated: false,
-    token: '',
-    error: [],
+    token: null,
+    errors: [],
     pending: false
 };
 
 const reducer = (state = initialState, action) => {
     switch(action.type) {
+        case APP_INIT:
+            return {
+                ...state,
+                token: action.payload
+            };
+
         case USER_LOGIN:
         case FETCH_USER:
         case USER_SIGNUP:
@@ -29,10 +35,11 @@ const reducer = (state = initialState, action) => {
             };
 
         case success(FETCH_USER):
-            return { ...state,
+            return {
+                ...state,
                 pending: false,
-                user: action.payload.user.id,
-                error: []
+                user: {...state.user, ...action.payload.data},
+                errors: []
             };
 
         case success(USER_LOGOUT):
@@ -40,9 +47,8 @@ const reducer = (state = initialState, action) => {
                 user: null,
                 authenticated: false,
                 token: null,
-                error: []
+                errors: []
             };
-
         case error(FETCH_USER):
         case error(USER_LOGIN):
         case error(USER_SIGNUP):
@@ -52,7 +58,7 @@ const reducer = (state = initialState, action) => {
                 token: null,
                 pending: false,
                 authenticated: false,
-                error: [...state.error, action.error]
+                errors: [...state.errors, action.error]
             };
 
         default:

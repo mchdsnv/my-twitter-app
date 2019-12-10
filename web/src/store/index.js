@@ -10,9 +10,9 @@ import feedReducer from './feed/feed-reducer';
 import authSaga from './auth/auth-sagas';
 import feedSaga from './feed/feed-sagas';
 
-import authMiddleware from './auth/auth-middleware';
+import middleware from './middleware';
 
-import {USER_LOGIN, USER_LOGOUT} from './auth/auth-constants';
+import {SET_AUTH_HEADER, USER_LOGOUT} from './auth/auth-constants';
 
 const sagaMiddleware = createSagaMiddleware();
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -20,7 +20,7 @@ const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 const setAxiosDefaults = (store) => (next) => (action) => {
     axios.defaults.baseURL = 'http://127.0.0.1:8000/api/';
     switch (action.type) {
-        case USER_LOGIN:
+        case SET_AUTH_HEADER:
             axios.defaults.headers.common['Authorization'] = `Bearer ${action.payload.access_token}`;
             break;
         case USER_LOGOUT:
@@ -37,7 +37,7 @@ export default createStore(
         auth: authReducer,
         feed : feedReducer,
     }),
-    composeEnhancers(applyMiddleware(sagaMiddleware, authMiddleware, thunk, logger, setAxiosDefaults)),
+    composeEnhancers(applyMiddleware(sagaMiddleware, middleware, thunk, logger, setAxiosDefaults)),
 );
 
 sagaMiddleware.run(authSaga, feedSaga);

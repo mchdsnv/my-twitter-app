@@ -1,15 +1,18 @@
 import { success, error } from 'redux-saga-requests';
-import {ADD_POST, UPDATE_POST, DELETE_POST, FETCH_POSTS} from './feed-constants';
+import {CREATE_POST, UPDATE_POST, DELETE_POST, FETCH_POSTS} from './feed-constants';
 
 const initialState = {
     pending: false,
     posts: [],
-    error: []
+    current_page: 1,
+    per_page: 5,
+    total: 0,
+    errors: []
 };
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
-        case ADD_POST:
+        case CREATE_POST:
         case UPDATE_POST:
         case DELETE_POST:
         case FETCH_POSTS:
@@ -18,44 +21,49 @@ const reducer = (state = initialState, action) => {
                 pending: true
             };
 
-        case success(ADD_POST):
+        case success(CREATE_POST):
             return {
                 ...state,
                 pending: false,
-                posts: [...state.posts, action.payload.post],
-                error: []
+                posts: [...state.posts, action.payload.data],
+                errors: []
             };
 
         case success(FETCH_POSTS):
-            console.log(action.payload);
+            const { data: posts, current_page, per_page, total} = action.payload.data;
             return {
                 ...state,
                 pending: false,
-                posts: [...state.posts, action.payload.data.data],
-                error: []
+                posts,
+                total,
+                per_page,
+                current_page,
+                errors: []
             };
 
         case success(UPDATE_POST):
             return {
                 ...state,
                 pending: false,
-                posts: state.posts.map(post => post.id === action.payload.post.id ? {...post, content: action.payload.content, editing: !post.editing} : post),
-                error: []
+                posts: state.posts.map(post => post.id === action.payload.data.id ? {...post, content: action.payload.data.content, editing: !post.editing} : post),
+                errors: []
             };
 
         case success(DELETE_POST):
             return {
                 ...state,
-                posts: state.posts.filter(post => post.id !== action.payload.post.id)
+                pending: false,
+                posts: state.posts.filter(post => post.id !== action.meta.post.id),
+                errors: []
             };
 
-        case error(ADD_POST):
+        case error(CREATE_POST):
         case error(UPDATE_POST):
         case error(DELETE_POST):
         case error(FETCH_POSTS):
             return {
                 ...state,
-                error: [...state.error, action.error]
+                errors: [...state.errors, action.error]
             };
 
         default:

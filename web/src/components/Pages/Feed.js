@@ -1,28 +1,38 @@
 import React from 'react';
 import Posts from '../Posts';
-import AddPostForm from '../AddPostForm';
-import * as actions from '../../store/feed/feed-actions';
+import * as feedActions from '../../store/feed/feed-actions';
 import {connect} from 'react-redux';
+import {Pagination} from 'antd';
+import AddPostForm from '../AddPostForm';
 
 class Feed extends React.Component {
 
     componentDidMount() {
         this.props.fetchPosts();
-        // const user = localStorage.getItem('user');
-        // const token = localStorage.getItem('token');
-        // if (!user && token) {
-        //     this.props.getUser();
-        // }
     }
 
+    handleChange = (page) => {
+        this.props.fetchPosts(page);
+    };
+
     render () {
+        const {posts} = this.props;
         return (
             <>
-                <AddPostForm/>
-                <Posts/>
+                <AddPostForm />
+                <Posts />
+                <Pagination
+                    defaultCurrent={1}
+                    defaultPageSize={5}
+                    current={posts.current_page}
+                    pageSize={posts.per_page}
+                    total={posts.total}
+                    onChange={(page)=>this.handleChange(page)}
+                    hideOnSinglePage={true}
+                />
             </>
         );
     }
 }
 
-export default connect(null, actions)(Feed);
+export default connect(()=>(state)=>({posts: state.feed}), feedActions)(Feed);

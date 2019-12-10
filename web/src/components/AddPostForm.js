@@ -23,7 +23,7 @@ const AddPostForm = (props) => {
         event.preventDefault();
         props.form.validateFields((error, values) => {
             if (!error) {
-                props.addPost(values.content, props.user);
+                props.createPost(values.content, props.user);
                 props.form.resetFields();
 
                 setState({
