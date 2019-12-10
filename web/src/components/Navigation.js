@@ -12,8 +12,7 @@ import {Route, Switch } from 'react-router-dom';
 const Navigation = () => {
     return (
         <Switch>
-            {/*<PrivateRoute path="/feed" component={Feed} />*/}
-            <Route path="/feed" component={Feed} />
+            <PrivateRoute path="/feed" component={Feed} />
             <Route exact path="/" component={Home} />
             <Route path="/home" component={Home} />
             <Route path="/login" component={Login} />

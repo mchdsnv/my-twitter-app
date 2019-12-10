@@ -49,6 +49,7 @@ const reducer = (state = initialState, action) => {
                 token: null,
                 errors: []
             };
+
         case error(FETCH_USER):
         case error(USER_LOGIN):
         case error(USER_SIGNUP):

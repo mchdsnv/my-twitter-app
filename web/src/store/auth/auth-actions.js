@@ -1,30 +1,26 @@
 import {USER_LOGIN, USER_LOGOUT, USER_SIGNUP, FETCH_USER, APP_INIT, SET_AUTH_HEADER} from './auth-constants';
 
-export const userLogin = ({email, password}) => {
-    return ({
-        type: USER_LOGIN,
-        payload: {
-            request: {
-                url: `/auth/login`,
-                method: 'POST',
-                data: {email, password}
-            },
+export const userLogin = ({email, password}) => ({
+    type: USER_LOGIN,
+    payload: {
+        request: {
+            url: `/auth/login`,
+            method: 'POST',
+            data: {email, password},
         },
-    })
-};
+    },
+});
 
-export const userSignup = ({name, email, password}) => {
-    return ({
-        type: USER_SIGNUP,
-        payload: {
-            request: {
-                url: `/auth/signup`,
-                method: 'POST',
-                data: {name, email, password}
-            },
+export const userSignup = ({name, email, password}) => ({
+    type: USER_SIGNUP,
+    payload: {
+        request: {
+            url: `/auth/signup`,
+            method: 'POST',
+            data: {name, email, password}
         },
-    })
-};
+    },
+});
 
 export const userLogout = () => ({
     type: USER_LOGOUT,
@@ -46,16 +42,13 @@ export const fetchUser = () => ({
     },
     meta: {
         asPromise: true,
-    }
+    },
 });
 
-export const setAuthHeader = (access_token) => {
-    return ({
-        type: SET_AUTH_HEADER,
-        payload: {access_token}
-    })
-};
-
+export const setAuthHeader = (access_token) => ({
+    type: SET_AUTH_HEADER,
+    payload: {access_token},
+});
 
 export const appInit = () => async (dispatch) => {
     try {
@@ -69,6 +62,6 @@ export const appInit = () => async (dispatch) => {
             await dispatch(fetchUser());
         }
     } catch (error) {
-        // dispatch(showAuthError(error));
+        //
     }
 };
