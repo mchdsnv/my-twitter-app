@@ -7,10 +7,11 @@ export default () => (next) => (action) => {
         case success(USER_SIGNUP):
             localStorage.setItem('access_token', JSON.stringify(action.payload.data.access_token));
             break;
-        case USER_LOGOUT:
+        case success(USER_LOGOUT):
             localStorage.removeItem('access_token');
             break;
         default:
-            return next(action);
+            break;
     }
+    return next(action);
 };

@@ -57,9 +57,4 @@ class AuthController extends Controller
         }
         return response()->json($user, 200);
     }
-
-    public function refresh()
-    {
-        return $this->respondWithToken(auth()->refresh());
-    }
 }

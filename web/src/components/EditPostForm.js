@@ -24,6 +24,7 @@ const EditPostForm = (props) => {
         props.form.validateFields((error, values) => {
             if (!error) {
                 props.updatePost(props.post, values.content);
+                props.showEditForm();
 
                 setState({
                     counter: 0

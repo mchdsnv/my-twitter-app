@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Http\Requests\PostRequest;
-use Tymon\JWTAuth\Facades\JWTAuth;
 
 class PostController extends Controller
 {
@@ -15,7 +14,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        return Post::paginate(5);
+        return Post::with('user:id,name')->latest()->paginate(5);
     }
     /**
      * Show the form for creating a new resource.
@@ -35,7 +34,10 @@ class PostController extends Controller
     public function store(PostRequest $request)
     {
         $user = $request->user();
-        return  Post::create( ['content' => $request['content'] , 'user_id' => $user->id]);
+        //$post = Post::create($request->post());
+       //return $user->posts()->save($post);
+        $post = Post::create( ['content' => $request['content'], 'user_id' => $user->id]);
+        return Post::with('user:id,name')->where('id', $post->id)->first();
     }
     /**
      * Display the specified resource.
@@ -66,7 +68,7 @@ class PostController extends Controller
      */
     public function update(PostRequest $request, $id)
     {
-        $post = Post::findOrFail($id);
+        $post = Post::with('user:id,name')->findOrFail($id);
         $post->update($request->post());
         return $post;
     }

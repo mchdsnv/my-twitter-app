@@ -20,6 +20,7 @@ const reducer = (state = initialState, action) => {
         case USER_LOGIN:
         case FETCH_USER:
         case USER_SIGNUP:
+        case USER_LOGOUT:
             return {
                 ...state,
                 pending: true
@@ -43,16 +44,12 @@ const reducer = (state = initialState, action) => {
             };
 
         case success(USER_LOGOUT):
-            return { ...state,
-                user: null,
-                authenticated: false,
-                token: null,
-                errors: []
-            };
+            return { ...state, ...initialState };
 
         case error(FETCH_USER):
         case error(USER_LOGIN):
         case error(USER_SIGNUP):
+        case error(USER_LOGOUT):
             return {
                 ...state,
                 user: null,

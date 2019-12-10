@@ -4,6 +4,13 @@ import * as feedActions from '../../store/feed/feed-actions';
 import {connect} from 'react-redux';
 import {Pagination} from 'antd';
 import AddPostForm from '../AddPostForm';
+import styled from "styled-components";
+
+const FeedPagination = styled(Pagination)`
+        margin: 15px auto;
+        width: 50%;
+        text-align: center;
+`;
 
 class Feed extends React.Component {
 
@@ -21,7 +28,7 @@ class Feed extends React.Component {
             <>
                 <AddPostForm />
                 <Posts />
-                <Pagination
+                <FeedPagination
                     defaultCurrent={1}
                     defaultPageSize={5}
                     current={posts.current_page}

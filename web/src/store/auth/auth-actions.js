@@ -40,9 +40,6 @@ export const fetchUser = () => ({
             method: 'GET',
         },
     },
-    meta: {
-        asPromise: true,
-    },
 });
 
 export const setAuthHeader = (access_token) => ({
@@ -54,10 +51,10 @@ export const appInit = () => async (dispatch) => {
     try {
         const access_token = JSON.parse(localStorage.getItem('access_token'));
         if (access_token) {
-            dispatch({
-                type: APP_INIT,
-                payload: access_token
-            });
+            // dispatch({
+            //     type: APP_INIT,
+            //     payload: access_token
+            // });
             dispatch(setAuthHeader(access_token));
             await dispatch(fetchUser());
         }
