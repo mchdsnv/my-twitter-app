@@ -25,7 +25,7 @@ class JwtMiddleware extends BaseMiddleware
             $user = JWTAuth::parseToken()->authenticate();
         } catch (Exception $e) {
             if ($e instanceof TokenInvalidException){
-                return response()->json(['status' => 'Token is Invalid']);
+                return response()->json(['status' => 'Token is Invalid'], 401);
             }else if ($e instanceof TokenExpiredException){
                 return response()->json(['status' => 'Token is Expired']);
             }else{

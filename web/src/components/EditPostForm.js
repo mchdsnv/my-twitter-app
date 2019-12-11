@@ -2,7 +2,7 @@ import React, {useState} from "react";
 
 import { Form, Input, Button, Icon } from 'antd';
 import {connect} from 'react-redux';
-import * as actions from '../store/feed/feed-actions';
+import * as editPostActions from '../store/feed/feed-actions';
 
 const { TextArea } = Input;
 
@@ -67,4 +67,4 @@ const EditPostForm = (props) => {
     );
 };
 
-export default connect(null, actions)(Form.create({ name: 'post-form' })(EditPostForm));
+export default connect(null, editPostActions)(Form.create({ name: 'post-form' })(EditPostForm));

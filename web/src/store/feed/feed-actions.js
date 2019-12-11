@@ -41,7 +41,6 @@ export const deletePost = (post) => ({
         },
     },
     meta: {
-        asPromise: true,
         post,
     },
 });

@@ -11,12 +11,6 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
     switch(action.type) {
-        case APP_INIT:
-            return {
-                ...state,
-                token: action.payload
-            };
-
         case USER_LOGIN:
         case FETCH_USER:
         case USER_SIGNUP:
@@ -31,7 +25,7 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 pending: false,
-                token: action.payload.token,
+                token: action.payload.access_token,
                 authenticated: true,
             };
 

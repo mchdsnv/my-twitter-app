@@ -1,28 +1,22 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Link, withRouter} from 'react-router-dom'
-import * as actions from '../store/auth/auth-actions';
-import {Button} from "antd";
+import * as authButtonActions from '../store/auth/auth-actions';
+import {Icon} from "antd";
+import styled from "styled-components";
+
+const NavMenuIcon = styled(Icon)`
+    vertical-align: middle;
+    color: #1890ff;
+    font-size: 30px !important;
+`;
 
 const AuthButton = withRouter(({ authenticated, userLogout }) => (
     authenticated === true ? (
-        <span>
-            <Button
-                type="primary"
-                onClick={userLogout}
-            >
-                Sign out
-            </Button>
-        </span>
+        <Link to="/home" onClick={userLogout}><NavMenuIcon type="logout" /></Link>
     ) : (
-        <Link to="/login">Login</Link>
+        <Link to="/login"><NavMenuIcon type="login" /></Link>
     )
 ));
 
-const mapStateToProps = (state) => {
-    return {
-        authenticated: state.auth.authenticated
-    }
-};
-
-export default connect(mapStateToProps, actions)(AuthButton);
+export default connect(()=>(state)=>({authenticated: state.auth.authenticated}), authButtonActions)(AuthButton);
