@@ -7,10 +7,9 @@ import {requestsPromiseMiddleware} from 'redux-saga-requests';
 import authReducer from './auth/auth-reducer';
 import feedReducer from './feed/feed-reducer';
 
-import authSaga from './auth/auth-sagas';
-import feedSaga from './feed/feed-sagas';
+import {authMiddleware, setAxiosDefaults} from './middleware';
 
-// import appMiddleware from './middleware';
+import rootSaga from './sagas';
 
 const sagaMiddleware = createSagaMiddleware();
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
@@ -23,6 +22,8 @@ export default createStore(
     composeEnhancers(
         applyMiddleware(
             requestsPromiseMiddleware(),
+            authMiddleware,
+            setAxiosDefaults,
             sagaMiddleware,
             thunk,
             logger,
@@ -30,4 +31,4 @@ export default createStore(
     ),
 );
 
-sagaMiddleware.run(authSaga, feedSaga);
+sagaMiddleware.run(rootSaga);

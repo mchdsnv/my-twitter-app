@@ -11,12 +11,10 @@ const NavMenuIcon = styled(Icon)`
     font-size: 30px !important;
 `;
 
-const AuthButton = withRouter(({ authenticated, userLogout }) => (
-    authenticated === true ? (
-        <Link to="/home" onClick={userLogout}><NavMenuIcon type="logout" /></Link>
-    ) : (
-        <Link to="/login"><NavMenuIcon type="login" /></Link>
-    )
+const AuthButton = withRouter(({ account, userLogout }) => (
+    account
+    ? <Link to="/home" onClick={userLogout}><NavMenuIcon type="logout" /></Link>
+        : <Link to="/login"><NavMenuIcon type="login" /></Link>
 ));
 
-export default connect(()=>(state)=>({authenticated: state.auth.authenticated}), authButtonActions)(AuthButton);
+export default connect(()=>(state)=>({account: state.auth.account}), authButtonActions)(AuthButton);

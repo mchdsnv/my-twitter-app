@@ -1,23 +1,29 @@
 import { success, error } from 'redux-saga-requests';
-import {USER_LOGIN, USER_LOGOUT, USER_SIGNUP, FETCH_USER, APP_INIT} from './auth-constants';
+import {USER_LOGIN, USER_LOGOUT, USER_SIGNUP, FETCH_USER, APP_INIT, SET_TOKEN} from './auth-constants';
 
 const initialState = {
-    user: null,
-    authenticated: false,
-    token: null,
+    account: null,
     errors: [],
     pending: false
 };
 
 const reducer = (state = initialState, action) => {
     switch(action.type) {
+        case APP_INIT:
+            return {
+                ...state,
+                account: action.payload,
+                errors: []
+            };
+
         case USER_LOGIN:
         case FETCH_USER:
         case USER_SIGNUP:
         case USER_LOGOUT:
             return {
                 ...state,
-                pending: true
+                pending: true,
+                errors: []
             };
 
         case success(USER_LOGIN):
@@ -25,20 +31,23 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 pending: false,
-                token: action.payload.access_token,
-                authenticated: true,
+                account: action.payload.data,
+                errors: []
             };
 
         case success(FETCH_USER):
             return {
                 ...state,
                 pending: false,
-                user: {...state.user, ...action.payload.data},
+                account: {...state, ...action.payload.data},
                 errors: []
             };
 
         case success(USER_LOGOUT):
-            return { ...state, ...initialState };
+            return {
+                ...state,
+                ...initialState
+            };
 
         case error(FETCH_USER):
         case error(USER_LOGIN):
@@ -46,10 +55,8 @@ const reducer = (state = initialState, action) => {
         case error(USER_LOGOUT):
             return {
                 ...state,
-                user: null,
-                token: null,
+                account: null,
                 pending: false,
-                authenticated: false,
                 errors: [...state.errors, action.error]
             };
 

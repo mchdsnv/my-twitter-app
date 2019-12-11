@@ -23,7 +23,7 @@ const AddPostForm = (props) => {
         event.preventDefault();
         props.form.validateFields((error, values) => {
             if (!error) {
-                props.createPost(values.content, props.user.name);
+                props.createPost(values.content, props.account.name);
                 props.form.resetFields();
 
                 setState({
@@ -69,7 +69,7 @@ const AddPostForm = (props) => {
 const mapStateToProps = (state) => {
     return {
         posts: state.feed.posts,
-        user: state.auth.user
+        account: state.auth.account
     };
 };
 
