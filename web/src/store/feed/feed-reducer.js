@@ -1,8 +1,9 @@
 import { success, error } from 'redux-saga-requests';
 import {CREATE_POST, UPDATE_POST, DELETE_POST, FETCH_POSTS} from './feed-constants';
+import {APP_INIT} from "../auth/auth-constants";
 
 const initialState = {
-    pending: false,
+    isPending: false,
     posts: [],
     current_page: 1,
     per_page: 5,
@@ -18,13 +19,13 @@ const reducer = (state = initialState, action) => {
         case FETCH_POSTS:
             return {
                 ...state,
-                pending: true
+                isPending: true
             };
 
         case success(CREATE_POST):
             return {
                 ...state,
-                pending: false,
+                isPending: false,
                 posts: [...state.posts, action.payload.data],
                 errors: []
             };
@@ -33,7 +34,7 @@ const reducer = (state = initialState, action) => {
             const { data: posts, current_page, per_page, total} = action.payload.data;
             return {
                 ...state,
-                pending: false,
+                isPending: false,
                 posts,
                 total,
                 per_page,
@@ -44,7 +45,7 @@ const reducer = (state = initialState, action) => {
         case success(UPDATE_POST):
             return {
                 ...state,
-                pending: false,
+                isPending: false,
                 posts: state.posts.map(post => post.id === action.payload.data.id ? {...post, content: action.payload.data.content, editing: !post.editing} : post),
                 errors: []
             };
@@ -52,7 +53,7 @@ const reducer = (state = initialState, action) => {
         case success(DELETE_POST):
             return {
                 ...state,
-                pending: false,
+                isPending: false,
                 posts: state.posts.filter(post => post.id !== action.meta.post.id),
                 errors: []
             };
@@ -63,7 +64,7 @@ const reducer = (state = initialState, action) => {
         case error(FETCH_POSTS):
             return {
                 ...state,
-                errors: [...state.errors, action.error]
+                errors: action.error
             };
 
         default:

@@ -1,6 +1,6 @@
 import {CREATE_POST, FETCH_POSTS, DELETE_POST, UPDATE_POST} from './feed-constants';
 
-export const createPost = (content, username) => ({
+export const createPost = (content) => ({
     type: CREATE_POST,
     payload: {
         request: {

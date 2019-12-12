@@ -10,7 +10,7 @@ import './LoginForm.css';
 const LoginForm = (props) => {
     const { getFieldDecorator } = props.form;
 
-    if (props.account) {
+    if (props.isAuthenticated) {
         return <Redirect to='/feed' />
     }
 
@@ -65,4 +65,4 @@ const LoginForm = (props) => {
     );
 };
 
-export default connect(()=>(state)=>({account: state.auth.account}), loginActions)(Form.create({ name: 'login-form' })(LoginForm));
+export default connect(()=>(state)=>({isAuthenticated: state.auth.isAuthenticated}), loginActions)(Form.create({ name: 'login-form' })(LoginForm));

@@ -7,7 +7,7 @@ import {requestsPromiseMiddleware} from 'redux-saga-requests';
 import authReducer from './auth/auth-reducer';
 import feedReducer from './feed/feed-reducer';
 
-import {authMiddleware, setAxiosDefaults} from './middleware';
+import middleware from './middleware';
 
 import rootSaga from './sagas';
 
@@ -22,8 +22,7 @@ export default createStore(
     composeEnhancers(
         applyMiddleware(
             requestsPromiseMiddleware(),
-            authMiddleware,
-            setAxiosDefaults,
+            middleware,
             sagaMiddleware,
             thunk,
             logger,

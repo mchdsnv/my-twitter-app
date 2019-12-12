@@ -34,9 +34,8 @@ class PostController extends Controller
     public function store(PostRequest $request)
     {
         $user = $request->user();
-        //$post = Post::create($request->post());
-       //return $user->posts()->save($post);
-        $post = Post::create( ['content' => $request['content'], 'user_id' => $user->id]);
+        $post = new Post($request->post());
+        $user->posts()->save($post);
         return Post::with('user:id,name')->where('id', $post->id)->first();
     }
     /**

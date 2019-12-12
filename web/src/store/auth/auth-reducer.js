@@ -1,20 +1,20 @@
 import { success, error } from 'redux-saga-requests';
-import {USER_LOGIN, USER_LOGOUT, USER_SIGNUP, FETCH_USER, APP_INIT, SET_TOKEN} from './auth-constants';
+import {USER_LOGIN, USER_LOGOUT, USER_SIGNUP, FETCH_USER, APP_INIT} from './auth-constants';
 
 const initialState = {
-    account: null,
+    user: {},
     errors: [],
-    pending: false
+    isPending: false,
+    isAuthenticated: false,
 };
 
 const reducer = (state = initialState, action) => {
     switch(action.type) {
         case APP_INIT:
-            return {
-                ...state,
-                account: action.payload,
-                errors: []
-            };
+        return {
+            ...state,
+            isAuthenticated: true,
+        };
 
         case USER_LOGIN:
         case FETCH_USER:
@@ -22,31 +22,32 @@ const reducer = (state = initialState, action) => {
         case USER_LOGOUT:
             return {
                 ...state,
-                pending: true,
-                errors: []
+                isPending: true,
+                isAuthenticated: false,
+                errors: [],
             };
 
         case success(USER_LOGIN):
         case success(USER_SIGNUP):
             return {
                 ...state,
-                pending: false,
-                account: action.payload.data,
-                errors: []
+                isPending: false,
+                isAuthenticated: true,
+                user: action.payload.data,
+                errors: [],
             };
 
         case success(FETCH_USER):
             return {
                 ...state,
-                pending: false,
-                account: {...state, ...action.payload.data},
-                errors: []
+                isPending: false,
+                user: {...state.user, ...action.payload.data},
+                errors: [],
             };
 
         case success(USER_LOGOUT):
             return {
-                ...state,
-                ...initialState
+                ...initialState,
             };
 
         case error(FETCH_USER):
@@ -55,9 +56,10 @@ const reducer = (state = initialState, action) => {
         case error(USER_LOGOUT):
             return {
                 ...state,
-                account: null,
-                pending: false,
-                errors: [...state.errors, action.error]
+                user: null,
+                isPending: false,
+                isAuthenticated: false,
+                errors: action.error,
             };
 
         default:

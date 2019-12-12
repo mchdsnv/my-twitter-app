@@ -2,7 +2,7 @@ import React from 'react'
 import { Link } from 'react-router-dom'
 import AuthButton from './AuthButton';
 
-import {Menu, Icon, Tooltip} from 'antd';
+import {Menu, Icon} from 'antd';
 import styled from "styled-components";
 
 const NavMenuIcon = styled(Icon)`
