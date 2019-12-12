@@ -10,9 +10,11 @@ import {
 
 export default store => next => async action => {
     switch (action.type) {
+
         case success(USER_LOGIN):
         case success(USER_SIGNUP):
             localStorage.setItem('user', JSON.stringify({access_token: action.payload.data.access_token}));
+            axios.defaults.headers.common['Authorization'] = `Bearer ${action.payload.data.access_token}`;
             await next(fetchUser());
             break;
 

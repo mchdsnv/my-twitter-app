@@ -1,5 +1,5 @@
 import { success, error } from 'redux-saga-requests';
-import {USER_LOGIN, USER_LOGOUT, USER_SIGNUP, FETCH_USER, APP_INIT} from './auth-constants';
+import {USER_LOGIN, USER_LOGOUT, USER_SIGNUP, FETCH_USER, LOGIN_WITH_TOKEN} from './auth-constants';
 
 const initialState = {
     user: {},
@@ -10,7 +10,7 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
     switch(action.type) {
-        case APP_INIT:
+        case LOGIN_WITH_TOKEN:
         return {
             ...state,
             isAuthenticated: true,

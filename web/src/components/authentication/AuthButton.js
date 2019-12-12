@@ -13,8 +13,7 @@ const NavMenuIcon = styled(Icon)`
 
 const AuthButton = withRouter(({ isAuthenticated, userLogout }) => (
     isAuthenticated
-    ? <Link to="/home" onClick={userLogout}><NavMenuIcon type="logout" /></Link>
-        : <Link to="/login"><NavMenuIcon type="login" /></Link>
+    ? <Link to="/home" onClick={userLogout}><NavMenuIcon type="logout" /></Link> : <Link to="/login"><NavMenuIcon type="login" /></Link>
 ));
 
 export default connect(()=>(state)=>({isAuthenticated: state.auth.isAuthenticated}), authButtonActions)(AuthButton);
