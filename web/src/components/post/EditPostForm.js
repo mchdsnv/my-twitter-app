@@ -2,7 +2,7 @@ import React, {useState} from "react";
 
 import { Form, Input, Button, Icon } from 'antd';
 import {connect} from 'react-redux';
-import * as editPostActions from '../store/feed/feed-actions';
+import * as editPostActions from '../../store/feed/feed-actions';
 
 const { TextArea } = Input;
 

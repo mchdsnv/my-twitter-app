@@ -1,6 +1,6 @@
 import React from "react";
 import {connect} from 'react-redux';
-import * as signUpActions from '../store/auth/auth-actions';
+import * as signUpActions from '../../store/auth/auth-actions';
 import {Form, Input, Tooltip, Icon, Button} from 'antd';
 
 const SignupForm = (props) => {

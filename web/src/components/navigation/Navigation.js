@@ -1,11 +1,11 @@
 import React from 'react';
 
-import Feed from './Pages/Feed';
-import Notfound from './Pages/Notfound';
-import Login from './Pages/Login';
-import Signup from './Pages/Signup';
+import Feed from '../pages/Feed';
+import Notfound from '../pages/Notfound';
+import Login from '../pages/Login';
+import Signup from '../pages/Signup';
 import PrivateRoute from './PrivateRoute';
-import Home from "./Pages/Home";
+import Home from "../pages/Home";
 
 import {Route, Switch } from 'react-router-dom';
 

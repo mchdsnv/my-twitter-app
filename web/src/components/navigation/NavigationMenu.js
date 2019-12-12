@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import AuthButton from './AuthButton';
+import AuthButton from '../authentication/AuthButton';
 
 import {Menu, Icon} from 'antd';
 import styled from "styled-components";

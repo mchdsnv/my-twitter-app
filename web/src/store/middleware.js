@@ -8,7 +8,6 @@ import {
     USER_LOGOUT,
 } from './auth/auth-constants';
 
-
 export default store => next => async action => {
     switch (action.type) {
         case success(USER_LOGIN):

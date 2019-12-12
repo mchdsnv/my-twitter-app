@@ -1,9 +1,9 @@
 import React from 'react';
-import Posts from '../Posts';
+import Posts from '../post/Posts';
 import * as feedActions from '../../store/feed/feed-actions';
 import {connect} from 'react-redux';
 import {Pagination} from 'antd';
-import AddPostForm from '../AddPostForm';
+import AddPostForm from '../post/AddPostForm';
 import styled from "styled-components";
 
 const FeedPagination = styled(Pagination)`

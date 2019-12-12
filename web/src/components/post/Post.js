@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import 'antd/dist/antd.css';
 import { Row, Col, Avatar, Button } from 'antd';
 import {connect} from 'react-redux';
-import * as postActions from '../store/feed/feed-actions';
+import * as postActions from '../../store/feed/feed-actions';
 
 import moment from "moment";
 import EditPostForm from "./EditPostForm";

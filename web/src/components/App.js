@@ -7,8 +7,8 @@ import {Col, Layout, Row} from 'antd';
 
 import './App.css';
 import GlobalStyle from './GlobalStyle'
-import NavigationMenu from './NavigationMenu';
-import Navigation from './Navigation';
+import NavigationMenu from './navigation/NavigationMenu';
+import Navigation from './navigation/Navigation';
 
 import * as appActions from '../store/auth/auth-actions';
 

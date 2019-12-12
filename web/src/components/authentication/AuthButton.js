@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Link, withRouter} from 'react-router-dom'
-import * as authButtonActions from '../store/auth/auth-actions';
+import * as authButtonActions from '../../store/auth/auth-actions';
 import {Icon} from "antd";
 import styled from "styled-components";
 

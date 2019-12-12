@@ -1,7 +1,7 @@
 import React from 'react';
 import {connect} from 'react-redux';
 import {Col, Row, Icon } from 'antd';
-import LoginForm from '../LoginForm';
+import LoginForm from '../authentication/LoginForm';
 import * as loginActions from '../../store/auth/auth-actions';
 
 const Login = ({isPending}) => {
