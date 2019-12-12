@@ -1,8 +1,8 @@
 import { success, error } from 'redux-saga-requests';
-import {USER_LOGIN, USER_LOGOUT, USER_SIGNUP, FETCH_USER, LOGIN_WITH_TOKEN} from './auth-constants';
+import {USER_LOGIN, USER_LOGOUT, USER_SIGNUP, FETCH_USER, APP_INIT} from './auth-constants';
 
 const initialState = {
-    user: {},
+    user: null,
     errors: [],
     isPending: false,
     isAuthenticated: false,
@@ -10,10 +10,11 @@ const initialState = {
 
 const reducer = (state = initialState, action) => {
     switch(action.type) {
-        case LOGIN_WITH_TOKEN:
+        case APP_INIT:
         return {
             ...state,
             isAuthenticated: true,
+            user: action.payload
         };
 
         case USER_LOGIN:

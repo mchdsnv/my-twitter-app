@@ -6,10 +6,15 @@ import {
     USER_LOGIN,
     USER_SIGNUP,
     USER_LOGOUT,
+    APP_INIT,
+    SET_AUTH_HEADER,
 } from './auth/auth-constants';
 
 export default store => next => async action => {
     switch (action.type) {
+        case SET_AUTH_HEADER:
+            axios.defaults.headers.common['Authorization'] = `Bearer ${action.payload.access_token}`;
+            break;
 
         case success(USER_LOGIN):
         case success(USER_SIGNUP):

@@ -1,10 +1,15 @@
 import React from "react";
 import {connect} from 'react-redux';
 import * as signUpActions from '../../store/auth/auth-actions';
+import { Redirect } from 'react-router-dom';
 import {Form, Input, Tooltip, Icon, Button} from 'antd';
 
 const SignupForm = (props) => {
     const { getFieldDecorator } = props.form;
+
+    if (props.user) {
+        return <Redirect to='/feed' />
+    }
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -126,11 +131,4 @@ const SignupForm = (props) => {
     );
 };
 
-const mapStateToProps = (state) => {
-    console.log(state);
-    return {
-        //
-    };
-};
-
-export default connect(mapStateToProps, signUpActions)(Form.create({ name: 'signup-form' })(SignupForm));
+export default connect(connect(()=>(state)=>({user: state.auth.user}), signUpActions))(Form.create({ name: 'signup-form' })(SignupForm));
