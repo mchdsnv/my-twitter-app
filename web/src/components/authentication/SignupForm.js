@@ -131,4 +131,4 @@ const SignupForm = (props) => {
     );
 };
 
-export default connect(connect(()=>(state)=>({user: state.auth.user}), signUpActions))(Form.create({ name: 'signup-form' })(SignupForm));
+export default connect(()=>(state)=>({user: state.auth.user}), signUpActions)(Form.create({ name: 'signup-form' })(SignupForm));
