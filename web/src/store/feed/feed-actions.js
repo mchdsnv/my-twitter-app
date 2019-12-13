@@ -19,6 +19,9 @@ export const fetchPosts = (page= 1) => ({
             method: 'GET',
         },
     },
+    meta: {
+        asPromise: true,
+    }
 });
 
 export const updatePost = (post, content) => ({
