@@ -10,7 +10,7 @@ import {
     SET_AUTH_HEADER,
 } from './auth/auth-constants';
 
-export default store => next => async action => {
+export default store => next => action => {
     switch (action.type) {
         case SET_AUTH_HEADER:
             axios.defaults.headers.common['Authorization'] = `Bearer ${action.payload.access_token}`;
@@ -20,11 +20,10 @@ export default store => next => async action => {
         case success(USER_SIGNUP):
             localStorage.setItem('user', JSON.stringify({access_token: action.payload.data.access_token}));
             axios.defaults.headers.common['Authorization'] = `Bearer ${action.payload.data.access_token}`;
-            await next(fetchUser());
+            next(fetchUser());
             break;
 
         case USER_LOGOUT:
-            delete axios.defaults.headers.common['Authorization'];
             localStorage.removeItem('user');
             break;
 
