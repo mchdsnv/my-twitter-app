@@ -7,7 +7,7 @@ import Signup from '../pages/Signup';
 import PrivateRoute from './PrivateRoute';
 import Home from "../pages/Home";
 
-import {Route, Switch } from 'react-router-dom';
+import {Route, Switch} from 'react-router-dom';
 
 const Navigation = () => {
     return (

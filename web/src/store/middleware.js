@@ -12,6 +12,10 @@ import {
 
 export default store => next => action => {
     switch (action.type) {
+        case APP_INIT:
+
+            break;
+
         case SET_AUTH_HEADER:
             axios.defaults.headers.common['Authorization'] = `Bearer ${action.payload.access_token}`;
             break;

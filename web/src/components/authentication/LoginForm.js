@@ -8,13 +8,15 @@ import { Form, Icon, Input, Button } from 'antd';
 import './LoginForm.css';
 
 const LoginForm = (props) => {
-    const { getFieldDecorator } = props.form;
 
     if (props.user) {
         return <Redirect to='/feed' />
     }
 
+    const { getFieldDecorator } = props.form;
+
     const handlePressEnter = (event) => ((event.shiftKey) ? false : handleSubmit(event));
+
     const handleSubmit = (event) => {
         event.preventDefault();
         props.form.validateFields((error, values) => {
@@ -24,14 +26,26 @@ const LoginForm = (props) => {
         });
     };
 
+    const getEmailFieldDecorator = getFieldDecorator('email', {
+        rules: [{
+            required: true,
+            message: 'Please input your E-mail!'
+        }],
+    });
+
+    const getPasswordFieldDecorator = getFieldDecorator('password', {
+        rules: [{
+            required: true,
+            message: 'Please input your Password!'
+        }],
+    });
+
     return (
         <Form
             onSubmit={handleSubmit}
             className="login-form">
             <Form.Item>
-                {getFieldDecorator('email', {
-                    rules: [{ required: true, message: 'Please input your E-mail!' }],
-                })(
+                {getEmailFieldDecorator(
                     <Input
                         prefix={<Icon type="mail" style={{ color: 'rgba(0,0,0,.25)' }} />}
                         placeholder="Email"
@@ -40,9 +54,7 @@ const LoginForm = (props) => {
                 )}
             </Form.Item>
             <Form.Item>
-                {getFieldDecorator('password', {
-                    rules: [{ required: true, message: 'Please input your Password!' }],
-                })(
+                {getPasswordFieldDecorator(
                     <Input
                         prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
                         type="password"

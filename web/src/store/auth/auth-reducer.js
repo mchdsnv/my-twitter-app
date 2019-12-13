@@ -42,7 +42,7 @@ const reducer = (state = initialState, action) => {
             return {
                 ...state,
                 isPending: false,
-                user: {...action.payload.data},
+                user: action.payload.data,
                 errors: [],
             };
 

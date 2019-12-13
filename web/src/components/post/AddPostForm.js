@@ -33,6 +33,13 @@ const AddPostForm = (props) => {
         });
     };
 
+    const getContentFieldDecorator = getFieldDecorator('content', {
+        rules: [{
+            required: true,
+            message: 'The message cannot be empty!'
+        }],
+    });
+
     return(
         <Form
             onSubmit = {handleSubmit}
@@ -40,9 +47,7 @@ const AddPostForm = (props) => {
             <Form.Item>
                 <span>What do you want for share?</span>
                 <p>{state.counter}</p>
-                {getFieldDecorator('content', {
-                    rules: [{ required: true, message: 'The message cannot be empty!' }],
-                })(
+                {getContentFieldDecorator(
                     <TextArea
                         autoSize={ {minRows: 5, maxRows: 10} }
                         name="twitter_message"

@@ -12,7 +12,6 @@ export const appInit = () => async (dispatch) => {
                 type: APP_INIT,
                 payload: user
             });
-            await dispatch(setAuthHeader(user.access_token));
         }
     } catch (error) {
         console.log(error);

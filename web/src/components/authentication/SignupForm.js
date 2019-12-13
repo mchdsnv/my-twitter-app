@@ -1,20 +1,24 @@
-import React from "react";
+import React, {useState} from "react";
 import {connect} from 'react-redux';
 import * as signUpActions from '../../store/auth/auth-actions';
 import { Redirect } from 'react-router-dom';
 import {Form, Input, Tooltip, Icon, Button} from 'antd';
 
 const SignupForm = (props) => {
-    const { getFieldDecorator } = props.form;
+    const [state, setState] = useState({
+        confirmDirty: false,
+        autoCompleteResult: [],
+    });
 
     if (props.user) {
         return <Redirect to='/feed' />
     }
 
+    const { getFieldDecorator } = props.form;
+
     const handleSubmit = (event) => {
         event.preventDefault();
         props.form.validateFieldsAndScroll((error, values) => {
-            console.log(values);
             if (!error) {
                 props.userSignup(values);
             }
@@ -23,7 +27,7 @@ const SignupForm = (props) => {
 
     const handleConfirmBlur = (event) => {
         const { value } = event.target;
-        // setState({ confirmDirty: state.confirmDirty || !!value });
+        setState({ confirmDirty: state.confirmDirty || !!value });
     };
 
     const compareToFirstPassword = (rule, value, callback) => {
@@ -37,9 +41,9 @@ const SignupForm = (props) => {
 
     const validateToNextPassword = (rule, value, callback) => {
         const { form } = props;
-        // if (value && state.confirmDirty) {
-        //     form.validateFields(['confirm'], { force: true });
-        // }
+        if (value && state.confirmDirty) {
+            form.validateFields(['confirm'], { force: true });
+        }
         callback();
     };
 
@@ -66,6 +70,51 @@ const SignupForm = (props) => {
         },
     };
 
+    const getNameFieldDecorator = getFieldDecorator('name', {
+        rules: [{
+            required: true,
+            message: 'Please input your name!',
+            whitespace: true
+        }],
+    });
+
+    const getEmailFieldDecorator = getFieldDecorator('email', {
+        rules: [
+            {
+                type: 'email',
+                message: 'The input is not valid E-mail!',
+            },
+            {
+                required: true,
+                message: 'Please input your E-mail!',
+            },
+        ],
+    });
+
+    const getPasswordFieldDecorator = getFieldDecorator('password', {
+        rules: [
+            {
+                required: true,
+                message: 'Please input your password!',
+            },
+            {
+                validator: validateToNextPassword,
+            },
+        ],
+    });
+
+    const getConfirmPasswordFieldDecorator = getFieldDecorator('confirm', {
+        rules: [
+            {
+                required: true,
+                message: 'Please confirm your password!',
+            },
+            {
+                validator: compareToFirstPassword,
+            },
+        ],
+    });
+
     return (
         <Form {...formItemLayout} onSubmit={handleSubmit}>
             <Form.Item
@@ -78,49 +127,16 @@ const SignupForm = (props) => {
                     </span>
                 }
             >
-                {getFieldDecorator('name', {
-                    rules: [{ required: true, message: 'Please input your name!', whitespace: true }],
-                })(<Input />)}
+                {getNameFieldDecorator (<Input />)}
             </Form.Item>
             <Form.Item label="E-mail">
-                {getFieldDecorator('email', {
-                    rules: [
-                        {
-                            type: 'email',
-                            message: 'The input is not valid E-mail!',
-                        },
-                        {
-                            required: true,
-                            message: 'Please input your E-mail!',
-                        },
-                    ],
-                })(<Input />)}
+                {getEmailFieldDecorator(<Input />)}
             </Form.Item>
             <Form.Item label="Password" hasFeedback>
-                {getFieldDecorator('password', {
-                    rules: [
-                        {
-                            required: true,
-                            message: 'Please input your password!',
-                        },
-                        {
-                            validator: validateToNextPassword,
-                        },
-                    ],
-                })(<Input.Password />)}
+                {getPasswordFieldDecorator(<Input.Password />)}
             </Form.Item>
             <Form.Item label="Confirm Password" hasFeedback>
-                {getFieldDecorator('confirm', {
-                    rules: [
-                        {
-                            required: true,
-                            message: 'Please confirm your password!',
-                        },
-                        {
-                            validator: compareToFirstPassword,
-                        },
-                    ],
-                })(<Input.Password onBlur={handleConfirmBlur} />)}
+                {getConfirmPasswordFieldDecorator(<Input.Password onBlur={handleConfirmBlur} />)}
             </Form.Item>
             <Form.Item {...tailFormItemLayout}>
                 <Button type="primary" htmlType="submit">

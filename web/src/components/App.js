@@ -1,5 +1,5 @@
 import React from "react";
-import {BrowserRouter as Router } from 'react-router-dom';
+import {BrowserRouter as Router} from 'react-router-dom';
 import {connect} from 'react-redux';
 
 import 'antd/dist/antd.css';
@@ -11,13 +11,19 @@ import NavigationMenu from './navigation/NavigationMenu';
 import Navigation from './navigation/Navigation';
 
 import * as appActions from '../store/auth/auth-actions';
+import {setAuthHeader} from "../store/auth/auth-actions";
 
 const {Header, Content} = Layout;
 
 class App extends React.Component {
 
     componentDidMount() {
+        const user = JSON.parse(localStorage.getItem('user'));
         this.props.appInit();
+        if (user) {
+            this.props.setAuthHeader(user.access_token);
+        }
+
     }
 
     render() {

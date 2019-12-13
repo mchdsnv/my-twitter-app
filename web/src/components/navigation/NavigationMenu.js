@@ -14,7 +14,7 @@ const NavMenuIcon = styled(Icon)`
 const NavigationMenu = () => (
     <Menu
         mode="horizontal"
-        defaultSelectedKeys={['1']}
+        defaultSelectedKeys={['/home']}
     >
         <Menu.Item key="/home"><Link to="/home"><NavMenuIcon type="home" /></Link></Menu.Item>
         <Menu.Item key="/feed"><Link to="/feed"><NavMenuIcon type="message" /></Link></Menu.Item>

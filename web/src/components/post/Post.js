@@ -88,9 +88,8 @@ const Post = ({post, deletePost}) => {
                     </ButtonGroup>
                 </Row>
                 <Row>
-                    <Content>{post.content}</Content>
+                    { state.editFormShow ? <Row><Col><EditPostForm post={post} showEditForm ={showEditForm} /></Col></Row> : <Content>{post.content}</Content> }
                 </Row>
-                { state.editFormShow && <Row><Col><EditPostForm post={post} showEditForm ={showEditForm} /></Col></Row> }
             </Col>
         </Row>
     );

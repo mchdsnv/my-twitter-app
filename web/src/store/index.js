@@ -25,7 +25,7 @@ export default createStore(
             middleware,
             sagaMiddleware,
             thunk,
-            logger,
+            // logger,
         )
     ),
 );

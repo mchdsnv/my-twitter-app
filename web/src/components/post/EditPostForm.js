@@ -19,6 +19,7 @@ const EditPostForm = (props) => {
     };
 
     const handlePressEnter = (event) => ((event.shiftKey) ? false : handleSubmit(event));
+
     const handleSubmit = (event) => {
         event.preventDefault();
         props.form.validateFields((error, values) => {
@@ -33,18 +34,20 @@ const EditPostForm = (props) => {
         });
     };
 
+    const getContentFieldDecorator = getFieldDecorator('content', {
+        rules: [{
+            required: true,
+            message: 'The message cannot be empty!'
+        }],
+        initialValue: props.post.content
+    });
+
     return(
         <Form
             onSubmit = {handleSubmit}
         >
             <Form.Item>
-                <p>{state.counter}</p>
-                {getFieldDecorator('content', {
-                    rules: [{ required: true,
-                        message: 'The message cannot be empty!'
-                    }],
-                    initialValue: props.post.content
-                })(
+                {getContentFieldDecorator(
                     <TextArea
                         autoSize={ {minRows: 5, maxRows: 10} }
                         name="twitter_message"
@@ -62,6 +65,7 @@ const EditPostForm = (props) => {
                     <Icon type="twitter" />
                     Update
                 </Button>
+                <p>{state.counter}</p>
             </Form.Item>
         </Form>
     );
