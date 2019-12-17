@@ -1,4 +1,3 @@
-import axios from 'axios';
 import {success} from 'redux-saga-requests';
 
 import {
@@ -6,16 +5,14 @@ import {
     USER_SIGNUP,
     USER_LOGOUT,
     APP_INIT,
-    SET_AUTH_HEADER,
-} from './auth/auth-constants';
-import {fetchUser, setAuthHeader} from "./auth/auth-actions";
+} from '../auth/auth-constants';
+import {fetchUser, setAuthHeader} from "../auth/auth-actions";
 
 export default store => next => async action => {
     switch (action.type) {
         case APP_INIT:
             try {
                 const user = JSON.parse(localStorage.getItem('user'));
-
                 if (user) {
                     next(setAuthHeader(user.access_token));
                     await next(fetchUser());
