@@ -67,8 +67,8 @@ const Post = ({post, deletePost}) => {
                         type="hidden"
                         value={post.id}
                     />
-                    <FullName>{post.user.name}</FullName>
-                    <UserName>@{post.user.name}</UserName>
+                    <FullName>{post.author.name}</FullName>
+                    <UserName>@{post.author.name}</UserName>
                     <Date>{moment( post.created_at, 'yyyy-mm-dd h:mm:ss').fromNow()}</Date>
                     <ButtonGroup>
                         <Button

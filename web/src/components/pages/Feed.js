@@ -15,7 +15,6 @@ const FeedPagination = styled(Pagination)`
 class Feed extends React.Component {
 
     componentDidMount() {
-        console.log('feed');
         this.props.fetchPosts();
     }
 

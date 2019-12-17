@@ -1,27 +1,13 @@
 import {USER_LOGIN, USER_LOGOUT, USER_SIGNUP, FETCH_USER, APP_INIT, SET_AUTH_HEADER} from './auth-constants';
 
-// export const appInit= () => ({
-//     type: APP_INIT,
-// });
-
-export const appInit = () => async (dispatch) => {
-    try {
-        const user = JSON.parse(localStorage.getItem('user'));
-        if (user) {
-            dispatch ({
-                type: APP_INIT,
-                payload: user
-            });
-        }
-    } catch (error) {
-        console.log(error);
-    }
-};
+export const appInit = () => ({
+    type: APP_INIT
+});
 
 export const setAuthHeader = (access_token) => {
     return ({
         type: SET_AUTH_HEADER,
-        payload: {access_token}
+        payload: access_token
     })
 };
 
@@ -67,4 +53,7 @@ export const fetchUser = () => ({
             method: 'GET',
         },
     },
+    meta: {
+        asPromise: true,
+    }
 });

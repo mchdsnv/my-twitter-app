@@ -1,6 +1,5 @@
 import axios from 'axios';
 import {success} from 'redux-saga-requests';
-import {fetchUser} from './auth/auth-actions';
 
 import {
     USER_LOGIN,
@@ -9,22 +8,29 @@ import {
     APP_INIT,
     SET_AUTH_HEADER,
 } from './auth/auth-constants';
+import {fetchUser, setAuthHeader} from "./auth/auth-actions";
 
-export default store => next => action => {
+export default store => next => async action => {
     switch (action.type) {
         case APP_INIT:
+            try {
+                const user = JSON.parse(localStorage.getItem('user'));
 
-            break;
-
-        case SET_AUTH_HEADER:
-            axios.defaults.headers.common['Authorization'] = `Bearer ${action.payload.access_token}`;
+                if (user) {
+                    next(setAuthHeader(user.access_token));
+                    await next(fetchUser());
+                }
+            } catch (errors) {
+                console.log(errors);
+            }
             break;
 
         case success(USER_LOGIN):
         case success(USER_SIGNUP):
-            localStorage.setItem('user', JSON.stringify({access_token: action.payload.data.access_token}));
-            axios.defaults.headers.common['Authorization'] = `Bearer ${action.payload.data.access_token}`;
-            next(fetchUser());
+            const {access_token: accessToken} = action.payload.data;
+            localStorage.setItem('user', JSON.stringify({access_token: accessToken}));
+            next(setAuthHeader(accessToken));
+            await next(fetchUser());
             break;
 
         case USER_LOGOUT:
@@ -32,7 +38,6 @@ export default store => next => action => {
             break;
 
         default:
-            axios.defaults.baseURL = 'http://127.0.0.1:8000/api/';
             break;
     }
     return next(action);

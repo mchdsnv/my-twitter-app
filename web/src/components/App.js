@@ -11,19 +11,13 @@ import NavigationMenu from './navigation/NavigationMenu';
 import Navigation from './navigation/Navigation';
 
 import * as appActions from '../store/auth/auth-actions';
-import {setAuthHeader} from "../store/auth/auth-actions";
 
 const {Header, Content} = Layout;
 
 class App extends React.Component {
 
     componentDidMount() {
-        const user = JSON.parse(localStorage.getItem('user'));
         this.props.appInit();
-        if (user) {
-            this.props.setAuthHeader(user.access_token);
-        }
-
     }
 
     render() {
