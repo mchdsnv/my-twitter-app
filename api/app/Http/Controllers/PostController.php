@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Post;
+use App\Models\User;
 use App\Http\Requests\PostRequest;
 
 class PostController extends Controller
@@ -14,7 +15,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        return Post::with('user:id,name')->latest()->paginate(5);
+        return Post::with(['author'])->latest()->paginate(5);
     }
     /**
      * Show the form for creating a new resource.
@@ -33,10 +34,7 @@ class PostController extends Controller
      */
     public function store(PostRequest $request)
     {
-        $user = $request->user();
-        $post = new Post($request->post());
-        $user->posts()->save($post);
-        return Post::with('user:id,name')->where('id', $post->id)->first();
+        return $request->user()->posts()->create($request->post())->loadMissing('author:id,name');
     }
     /**
      * Display the specified resource.
@@ -67,7 +65,7 @@ class PostController extends Controller
      */
     public function update(PostRequest $request, $id)
     {
-        $post = Post::with('user:id,name')->findOrFail($id);
+        $post = Post::findOrFail($id)->loadMissing('author:id,name');
         $post->update($request->post());
         return $post;
     }
@@ -79,8 +77,7 @@ class PostController extends Controller
      */
     public function destroy($id)
     {
-        $post = Post::findOrFail($id);
-        $post->delete();
-        return response()->json(['message' => 'Post deleted'], 204);
+        Post::destroy($id);
+        return response('Successfully removed.', 204);
     }
 }

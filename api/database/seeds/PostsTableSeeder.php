@@ -14,7 +14,7 @@ class PostsTableSeeder extends Seeder
     {
         Post::create([
             'content' => 'Curabitur non nulla sit amet nisl tempus convallis quis ac lectus.',
-            'user_id' => '1'
+            'author_id' => '1'
         ]);
     }
 }

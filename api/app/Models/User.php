@@ -29,7 +29,7 @@ class User extends Authenticatable implements JWTSubject
     ];
 
     public function posts() {
-        return $this->hasMany(Post::class);
+        return $this->hasMany(Post::class, 'author_id', 'id');
     }
 
     public function getJWTIdentifier()
